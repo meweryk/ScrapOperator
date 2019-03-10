@@ -1,0 +1,578 @@
+/*-крепим подвал к низу экрана-----------------------------------------------------------*/
+
+* {
+    padding: 0;
+}
+
+html {
+    height: 100%;
+    min-width: 100%;
+    width: auto;
+    margin: 0;
+    background: url(../img/Brushed-Metal.jpg) right bottom no-repeat fixed;
+    background-size: 100% 100%;
+}
+
+body {
+    height: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    color: #000000;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+nav,
+footer,
+header {
+    flex: 0 0 auto;
+    background: -moz-linear-gradient(left, rgba(249, 160, 27, 0.33) 0%, rgba(249, 160, 27, 0.9) 37%, rgba(249, 160, 27, 0.93) 58%, rgba(169, 191, 100, 0.94) 67%, rgba(0, 255, 255, 0.5) 86%, rgba(0, 255, 255, 0.17) 100%);
+    background: -webkit-linear-gradient(left, rgba(249, 160, 27, 0.33) 0%, rgba(249, 160, 27, 0.9) 37%, rgba(249, 160, 27, 0.93) 58%, rgba(169, 191, 100, 0.94) 67%, rgba(0, 255, 255, 0.5) 86%, rgba(0, 255, 255, 0.17) 100%);
+    background: linear-gradient(to right, rgba(249, 160, 27, 0.33) 0%, rgba(249, 160, 27, 0.9) 37%, rgba(249, 160, 27, 0.93) 58%, rgba(169, 191, 100, 0.94) 67%, rgba(0, 255, 255, 0.5) 86%, rgba(0, 255, 255, 0.17) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#54f9a01b', endColorstr='#2b00ffff', GradientType=1);
+    padding: 0.1875rem;
+    margin-top: 0.1875rem;
+    margin-bottom: 0.1875rem;
+    border-radius: 0.3125rem;
+}
+
+.content {
+    flex: 1 0 auto;
+    overflow-y: auto;
+    height: 70%;
+}
+
+section {    
+    padding: 0.1875rem;
+    /*margin-bottom: 0.1875rem;*/
+}
+
+
+/*-----Текст-----------------------------*/
+
+:root {
+    font-size: 16px;
+}
+
+@media only screen and (max-width: 400px) {
+    body {
+        font-size: 11px;
+    }
+    .wrapper {
+        max-width: 400px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    body {
+        font-size: 14px;
+    }
+    .wrapper {
+        max-width: 800px;
+    }
+}
+
+@media only screen and (max-width: 1100x) {
+    body {
+        font-size: 16px;
+    }
+    .wrapper {
+        max-width: 1100px;
+    }
+}
+
+@media only screen and (min-width: 1100px) {
+    body {
+        font-size: 18px;
+    }
+    .wrapper {
+        max-width: 2400px;
+    }
+}
+
+#shihta b {
+    font-size: 0.75rem;
+    color: #fff;
+}
+
+h3,
+h4,
+h5,
+h6 {
+    color: #121111;
+    font-weight: 600;
+    font-family: "Calibri";
+    line-height: normal;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    text-align: center;
+}
+
+body,
+div,
+table,
+thead,
+tbody,
+tfoot,
+tr,
+th,
+td,
+p {
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    font-family: "Calibri";
+    line-height: 1rem;
+}
+
+hr {
+    width: 95%;
+    align-content: center;
+    size: 2px;
+    color: darkcyan;
+}
+
+#date_time {
+    border: 0rem;
+    padding: 0rem;
+    text-align: center;
+    color: black;
+    font-size: 0.75rem;
+}
+
+
+/*-----Кнопки----------------------------*/
+
+.leg {
+    width: 15rem;
+    margin-left: 0px;
+    padding: 0.3125rem 0.625rem;
+    background: linear-gradient(to bottom, cyan, #f9a01b);
+    border-radius: 0.3125rem;
+    border: 1px solid #333;
+    font-size: 0.875rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: left;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+#lom,
+#ferro {
+    width: initial;
+    margin: 0rem 0.325rem 0rem;
+    cursor: pointer;
+}
+
+.form .sub,
+.sub {
+    width: auto;
+    margin: 0 0 0 0;
+    padding: 0.1875rem 0.325rem;
+    background: linear-gradient(lightyellow, #778899);
+    border: 1px solid #666;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: rgb(53, 53, 58);
+}
+
+.close_ready {
+    position: absolute;
+    margin-left: 12.5rem;
+    margin-top: -0.375rem;
+    cursor: pointer;
+}
+
+.close,
+.warning {
+    margin-left: 13.7rem;
+    margin-top: -1rem;
+    cursor: pointer;
+}
+
+
+/*----Таблица----------------------------*/
+
+#shih_mat,
+#ferros {
+    display: none;
+    width: auto;
+}
+
+.scroll {
+    width: auto;
+    overflow: auto;
+}
+
+#sh,
+#f {
+    background: linear-gradient(0deg, lightgray, gray);
+    font-weight: bold;
+}
+
+table {
+    width: auto;
+    padding: 0.250rem 0rem;
+    border-collapse: separate;
+    border-spacing: 0.125rem 0rem;
+    border: 0px solid #333;
+    border-radius: 0.3125rem;
+    font-size: 0.8125rem;
+}
+
+caption {
+    margin: 0.3125rem 0 0;
+    padding: 0.125rem 0.625rem 0;
+    text-align: left;
+}
+
+tbody {
+    background-color: white;
+}
+
+thead th {
+    border-bottom: 0.125rem solid #0A3542;
+    vertical-align: top;
+}
+
+th,
+td {
+    padding: 0.125rem 0.1rem;
+    vertical-align: middle;
+}
+
+tbody tr:nth-child(even) {
+    background: #cecfd5;
+    /* чередование подкрашивания строк таблицы, для первой строки (odd)*/
+    background: linear-gradient(#F8F8FF, #778899);
+}
+
+tbody tr:nth-child(even) td {
+    border-bottom: 1px solid #0A3542;
+    /* чередование нижней границы строк таблицы,*/
+    font-size: 0.6875rem;
+}
+
+tbody td {
+    text-align: right;
+}
+
+tbody td:first-child {
+    text-align: left;
+}
+
+tfoot {
+    background: lightgreen;
+    background: linear-gradient(lightgreen, #66CDAA);
+    text-align: right;
+}
+
+tfoot tr:first-child th {
+    border-top: 1px solid #0A3542;
+}
+
+tfoot tr:first-child td {
+    border-top: 1px solid #0A3542;
+}
+
+#all td {
+    font-weight: bold;
+}
+
+#pr td {
+    font-weight: bold;
+    font-size: 0.6875rem;
+}
+
+thead {
+    background: #FFF;
+    background: linear-gradient(lightgrey, grey);
+}
+
+thead th:first-child {
+    border-top-left-radius: 0.3125rem;
+}
+
+thead th:last-child {
+    border-top-right-radius: 0.3125rem;
+}
+
+tfoot tr:last-child th:first-child {
+    border-bottom-left-radius: 0.3125rem;
+}
+
+tfoot tr:last-child td:last-child {
+    border-bottom-right-radius: 0.3125rem;
+}
+
+#footer tbody:first-child,
+#footer tbody:last-child {
+    background-color: initial;
+}
+
+#footer tbody tr:nth-child(even) {
+    background: initial;
+    background: initial;
+}
+
+
+/*---Всплывающая форма для отправки данных--- */
+
+.popup {
+    min-height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.popup_bg {
+    min-height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.form {
+    width: 14rem;
+    margin: 1.5rem auto;
+    padding: 0rem 0rem 0.5rem 0rem;
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(45deg, #0A3542, darkcyan);
+    border: 0px solid #666666;
+    border-radius: 0.3125rem;
+    box-shadow: 0 0 20px 1px cyan;
+    vertical-align: middle;
+    font-size: 1rem;
+}
+
+.legend {
+    width: 14rem;
+    padding: 0.5rem 0rem;
+    background: linear-gradient(to top, darkcyan, #0A3542);
+    border: 0px solid #333;
+    border-radius: 0.3125rem;
+    font-size: 0.875rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    color: lightyellow;
+}
+
+
+/*-----Поле ввода формы-----------------*/
+
+input {
+    width: 3rem;
+    padding: 0.125rem 0.5%;
+    border: 1px solid #666;
+    border-radius: 0.3125rem;
+    background: aquamarine;
+    font-size: 0.75rem;
+}
+
+input:focus {
+    box-shadow: 0 0 5px 1px #00a8de;
+    /* Свечение вокруг поля */
+    background: #fffac0;
+}
+
+
+/*.form input,*/
+
+.plavka input {
+    width: 5rem;
+}
+
+select {
+    margin: 0.1875rem 0.375rem;
+    padding: 0.125rem 0.5%;
+    border: 1px solid #666;
+    border-radius: 0.3125rem;
+    background: #fffac0;
+}
+
+.select {
+    margin: 0;
+    padding: 0 0 0 0.5rem;
+    vertical-align: middle;
+    color: lightyellow;
+}
+
+
+/* Всплывающее окно alert---------------------------------------------------------------------*/
+
+#wrap,
+#wrap_YN {
+    display: none;
+    opacity: 0.8;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 16px;
+    background-color: rgba(1, 1, 1, 0.725);
+    z-index: 100;
+    overflow: auto;
+}
+
+#window {
+    width: 15rem;
+    height: 0rem;
+    margin: 5rem auto;
+    display: none;
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 100%);
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#00ffffff', GradientType=0);
+    z-index: 200;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 0px 0px;
+}
+
+.alert {
+    margin-top: -1.7rem;
+    padding: 1rem;
+    background-color: lightsalmon;
+    border: 1px solid white;
+    border-radius: 0.3125rem;
+    box-shadow: 0 0 30px 3px #d6e9c6;
+    font-size: 0.9rem;
+    text-align: center;
+    color: darkslategray;
+    line-height: 1.5;
+    font-weight: bold;
+}
+
+
+/*-Всплывающее окно да нет-----------------------------------------------------------*/
+
+#window_YN {
+    width: 15rem;
+    height: 15rem;
+    margin: 5rem auto;
+    display: none;
+    background: darkslategray;
+    border: 1px solid orange;
+    border-radius: 0.3125rem;
+    box-shadow: 0 0 30px 3px orangered;
+    z-index: 200;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 0px 0px;
+}
+
+.alert_YN {
+    margin-top: -1.0rem;
+    padding: 2rem 1rem 1rem 1rem;
+    background-color: darkslategray;
+    border: 0px solid #d6e9c6;
+    border-radius: 0.3125rem;
+    font-size: 0.9rem;
+    text-align: center;
+    color: seashell;
+    line-height: 1.5;
+    font-weight: bold;
+}
+
+
+/*-----------------------------------*/
+
+.fakewindowcontein {
+    width: 96%;
+    height: auto;
+    padding: 1% 2%;
+    text-align: justify;
+    text-indent: 2rem;
+    line-height: normal;
+    color: lightyellow;
+}
+
+.row {
+    margin: 0.375rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(4rem, 1fr));
+    grid-gap: 1vw;
+}
+
+.row>div {
+    margin: 0 0 0 0;
+    padding: 0.125rem 0.125rem;
+    background: linear-gradient(lightyellow, #778899);
+    border: 1px solid #666;
+    border-radius: 0.3125rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sub:hover,
+.row>div:hover {
+	color: rgb(0, 0, 0);
+    background: linear-gradient(#79a5d1, lightyellow);
+}
+
+.chami {
+    width: 14rem;
+    display: grid;
+    grid-template-rows: repeat(13, 1fr);
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0vw;
+}
+
+.izl {
+    width: 17rem;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0vw;
+}
+
+.add,
+.plavka,
+.izl>div,
+.chami>div {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0.875rem;
+    vertical-align: middle;
+    border: 0px solid #666;
+    text-align: left;
+    line-height: normal;
+    color: lightyellow;
+}
+
+span {
+    color: greenyellow;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: cyan;
+    /*color: #0AF;
+    /*color: #08C;*/
+    transition: all 0.3s ease-out;
+    position: relative;
+    vertical-align: middle;
+    padding: 5px;
+    margin: -0.5px;
+}
+
+a:hover {
+    color: lightyellow;
+}

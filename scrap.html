@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
+    <title>Scrap Operator</title>
+    <link rel="stylesheet" href="css/scrap.css" type="text/css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/date_time.js"></script>
+    <script type="text/javascript" src="js/scrap.js" defer></script>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <header>
+            <div>
+                <center><span id="date_time"></span></center>
+                <h3>ОТЧЁТ ПО ПЛАВКЕ</h3>
+                <b>
+                    <center><output form="add_plavka" name="pl_id"></output></center>
+                </b>
+            </div>
+        </header>
+
+        <nav><a href="ScrapGroup.html">Группы отходов</a></nav>
+
+        <div class="content">
+            <!------------------ВВод идентификации плавки-------------------->
+            <section>
+                <button class="leg" onclick="showPopup1();">Идентификатор плавки</button>
+            </section>
+
+            <!------------------Рассчёт количества шихты на выплавку--------->
+            <section>
+                <button class="leg" onclick="showPopup2();">Расчёт массы шихты</button>
+            </section>
+
+            <!--------------------Таблица с данными по завалке--------------->
+            <section id="shihta">
+                <button class="leg" onclick="showPopup4();">Шихтовые материалы</button>
+                <div id="shih_mat">
+                    <!--Таблица с расчётными данными по завалке-->
+                    <div class="scroll">
+                        <table id="tab1" onclick="showPopup3();">
+                            <caption><b>ШИХТА - ФЕРРОСПЛАВЫ</b></caption>
+                            <thead>
+                                <tr>
+                                    <th align="center">группа<br>отходов</th>
+                                    <th align="center">партия</th>
+                                    <th align="center">масса<br>т</th>
+                                    <th align="center">засор<br>%</th>
+                                    <th align="center">масса<br>б/з, т</th>
+                                    <th align="center">C%</th>
+                                    <th align="center">Ni%</th>
+                                    <th align="center">Cr%</th>
+                                    <th align="center">Mo%</th>
+                                    <th align="center">P%</th>
+                                    <th align="center">Cu%</th>
+                                    <th align="center">Mn%</th>
+                                    <th align="center">W%</th>
+                                    <th align="center">V%</th>
+                                    <th align="center">Co%</th>
+                                    <th align="center">Si%</th>
+                                    <th align="center">Ti%</th>
+                                    <th align="center">Al%</th>
+                                    <th align="center">Nb%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="sh" align="left" colspan="19">ШИХТА</td>
+                                </tr>
+                            </tbody>
+                            <tbody name="shiht">
+                                <!--сюда функция возвращает данные с формы по шихте-->
+                            </tbody>
+                            <tbody>
+                                <tr>
+                                    <td id="f" align="left" colspan="19">ФЕРРОСПЛАВЫ</td>
+                                </tr>
+                            </tbody>
+                            <tbody name="fert">
+                                <!--сюда функция возвращает данные с формы по ферросплавам-->
+                            </tbody>
+                            <tfoot>
+                                <tr id="all">
+                                    <th align="right" colspan="2">всего, т &nbsp; &nbsp;</th>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                </tr>
+                                <tr id="pr">
+                                    <th align="right" colspan="2">% &nbsp; &nbsp;</th>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <!--Вывод итоговых значений плавки-->
+                    <div class="scroll">
+                        <table id="itogo">
+                            <caption><b>ИТОГ: ПЛАН - ФАКТ</b></caption>
+                            <thead>
+                                <tr>
+                                    <th align="center"></th>
+                                    <th align="center">Вес<br>расплава</th>
+                                    <th align="center">C%</th>
+                                    <th align="center">Ni%</th>
+                                    <th align="center">Cr%</th>
+                                    <th align="center">Mo%</th>
+                                    <th align="center">P%</th>
+                                    <th align="center">Cu%</th>
+                                    <th align="center">Mn%</th>
+                                    <th align="center">W%</th>
+                                    <th align="center">V%</th>
+                                    <th align="center">Co%</th>
+                                    <th align="center">Si%</th>
+                                    <th align="center">Ti%</th>
+                                    <th align="center">Al%</th>
+                                    <th align="center">Nb%</th>
+                                </tr>
+                            </thead>
+                            <tbody onclick="showPopup();">
+                                <tr id="max">
+                                    <th align="center">MAX</th>
+                                    <th align="center">Задано</th>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                </tr>
+                                <tr id="min">
+                                    <th align="center">MIN</th>
+                                    <th align="center" weight="bold"></th>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                </tr>
+                            </tbody>
+                            <!--сюда функция возвращает данные с формы вводв химюсостама-->
+                            <tfoot onclick="showPopup5();">
+                                <tr id="prognoz">
+                                    <th align="center">Пронгоз</th>
+                                    <th align="center"></th>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                </tr>
+                                <tr id="fact">
+                                    <th align="center">Факт</th>
+                                    <th align="center"></th>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <center><input id="next" type="button" name="next" class="sub" value="готово" /></center>
+                </div>
+            </section>
+
+            <!------------------Рассчёт количества ферросплавов--------->
+            <section>
+                <button class="leg" onclick="showPopup7();">Расчёт ферросплавов</button>
+                <div id="ferros">
+                    <div class="fakewindowcontein">
+                        <p>Для расчёта количества добавляемых ферросплавов на вкладке <i>"Шихтовые материалы"</i> в графе <i>"Задано"</i> должны быть заданы границы элементов в годном, данные полупродукта: вес и текущий хим. состав.</p>
+                        <p>Выберите необходимый элемент для расчёта, в открывшейся форме введите хим.состав ферросплава. После ввода необходимых элементов нажмите кнопку <i>"Рассчёт"</i>.</p>
+                    </div>
+                    <div class="row">
+                        <div class="cell" onclick="showPopup6('0');">C%</div>
+                        <div class="cell" onclick="showPopup6('1');">Ni%</div>
+                        <div class="cell" onclick="showPopup6('2');">Cr%</div>
+                        <div class="cell" onclick="showPopup6('3');">Mo%</div>
+                        <div class="cell" onclick="showPopup6('4');">Cu%</div>
+                        <div class="cell" onclick="showPopup6('5');">Mn%</div>
+                        <div class="cell" onclick="showPopup6('6');">W%</div>
+                        <div class="cell" onclick="showPopup6('7');">V%</div>
+                        <div class="cell" onclick="showPopup6(8);">Co%</div>
+                        <div class="cell" onclick="showPopup6('9');">Si%</div>
+                        <div class="cell" onclick="showPopup6('10');">Ti%</div>
+                        <div class="cell" onclick="showPopup6('11');">Al%</div>
+                        <div class="cell" onclick="showPopup6('12');">Nb%</div>
+                        <div>Рассчёт</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <table id="footer" style="display: flex; justify-content: center;">
+                <tr>
+                    <td>
+                        <center><a href="mailto:iliya.pavlov1109@gmail.com?subject=Вопросы по расчётам" title="Задавайте вопросы по электронной почте">Почта
+                                <!--img src="./img/logo.gif"--></a></center>
+                    </td>
+                    <td>
+                        <center><address>Zaporizhzhya, Ukraine</address> Copyryght &copy; <time datetime="2018">2018</time></center>
+                    </td>
+                    <td>
+                        <center><a href="tel:+380676191154">Звонок</a></center>
+                    </td>
+                </tr>
+            </table>
+        </footer>
+
+    </div>
+
+    <!---------0--Форма ВВод химсостава------------------------------------------------>
+    <div class="popup" id="chamgod">
+        <div class="popup_bg" id="chamgod_bg"></div>
+        <div class="form">
+            <img class="close_ready" src="img/close.png">
+            <form name="cham_god" action="scrap.js" autocomplete="off" id="add_cham_god" method="post" onsubmit="addCham(); return false;">
+                <div class="legend">Заданный химсостав</div>
+                <div class="chami">
+                    <div><b>C%</b></div>
+                    <div><input type="number" step="any" min="0" max="100" name="c" id="c_min" placeholder="min" value="" /></div>
+                    <div><input type="number" step="any" min="0" max="100" name="c" id="c_max" placeholder="max" value="" /></div>
+                    <div><b>Ni%</b></div>
+                    <div><input type="number" step="any" min="0" max="100" name="ni" id="ni_min" placeholder="min" value="" /></div>
+                    <div><input type="number" step="any" min="0" max="100" name="ni" id="ni_max" placeholder="max" value="" /></div>
+                    <div><b>Cr%</b></div>
+                    <div><input type="number" step="any" min="0" max="100" name="cr" id="cr_min" placeholder="min" value="" /></div>
+                    <div><input type="number" step="any" min="0" max="100" name="cr" id="cr_max" placeholder="max" value="" /></div>
+                    <div><b>Mo%</b></div>
+                    <div><input type="number" step="any" min="0" max="100" name="mo" id="mo_min" placeholder="min" value="" /></div>
+                    <div><input type="number" step="any" min="0" max="100" name="mo" id="mo_max" placeholder="max" value="" /></div>
+                    <div><b>P%</b></div>
+                    <div><input type="number" step="any" min="0" max="100" name="p" id="p_min" placeholder="min" value="" /></div>
+                    <div><input type="number" step="any" min="0" max="100" name="p" id="p_max" placeholder="max" value="" /></div>
+                    <div><b>Cu%</b></div>
+                    <div><input type="number" step="any" min="0" max="100" name="cu" id="cu_min" placeholder="min" value="" /></div>
+                    <div><input type="number" step="any" min="0" max="100" name="cu" id="cu_max" placeholder="max" value="" /></div>
+                    <div><b>Mn%</b></div>
+                    <div><input type="number" step="any" min="0" max="100" name="mn" id="mn_min" placeholder="min" value="" /></div>
+                    <div><input type="number" step="any" min="0" max="100" name="mn" id="mn_max" placeholder="max" value="" /></div>
+                    <div><b>W%</b></div>
+                    <div><input type="number" step="any" min="0" max="100" name="w" id="w_min" placeholder="min" value="" /></div>
+                    <div><input type="number" step="any" min="0" max="100" name="w" id="w_max" placeholder="max" value="" /></div>
+                    <div><b>V%</b></div>
+                    <div><input type="number" step="any" min="0" max="100" name="v" id="v_min" placeholder="min" value="" /></div>
+                    <div><input type="number" step="any" min="0" max="100" name="v" id="v_max" placeholder="max" value="" /></div>
+                    <div><b>Co%</b></div>
+                    <div><input type="number" step="any" min="0" max="100" name="co" id="co_min" placeholder="min" value="" /></div>
+                    <div><input type="number" step="any" min="0" max="100" name="co" id="co_max" placeholder="max" value="" /></div>
+                    <div><b>Si%</b></div>
+                    <div><input type="number" step="any" min="0" max="100" name="si" id="si_min" placeholder="min" value="" /></div>
+                    <div><input type="number" step="any" min="0" max="100" name="si" id="si_max" placeholder="max" value="" /></div>
+                    <div><b>Ti%</b></div>
+                    <div><input type="number" step="any" min="0" max="100" name="ti" id="ti_min" placeholder="min" value="" /></div>
+                    <div><input type="number" step="any" min="0" max="100" name="ti" id="ti_max" placeholder="max" value="" /></div>
+                    <div><b>Al%</b></div>
+                    <div><input type="number" step="any" min="0" max="100" name="al" id="al_min" placeholder="min" value="" /></div>
+                    <div><input type="number" step="any" min="0" max="100" name="al" id="al_max" placeholder="max" value="" /></div>
+                    <div><b>Nb%</b></div>
+                    <div><input type="number" step="any" min="0" max="100" name="nb" id="nb_min" placeholder="min" value="" /></div>
+                    <div><input type="number" step="any" min="0" max="100" name="nb" id="nb_max" placeholder="max" value="" /></div>
+                </div>
+                <div class="izl">
+                    <div class="add"><input type="reset" name="res" class="sub" value="Очистить" /></div>
+                    <div class="add"><input type="submit" id="ready" name="subm" class="sub" value="Добавить" /></div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!---------1--Форма Ввод номера и даты плавки-------------------------------------->
+    <div class="popup" id="plavka">
+        <div class="popup_bg" id="plavka_bg"></div>
+        <div class="form">
+            <img class="close_ready" src="img/close.png">
+            <form id="add_plavka" oninput="pl_id.value=pl_number.value+'&nbsp &nbsp &nbsp'+steel.value+'&nbsp &nbsp &nbsp'+pl_date.value+'&nbsp &nbsp &nbsp'+plk_number.value">
+                <div class="legend">Идентификатор плавки</div>
+                <div class="plavka"><input type="text" id="pl_number" name="pl_number" autofocus /> Номер плавки</div>
+                <div class="plavka"><input type="text" id="steel" name="steel" /> марка стали</div>
+                <div class="plavka"><input type="date" id="pl_date" name="pl_date" /> дата плавки</div>
+                <div class="plavka"><input type="text" id="plk_number" name="plk_number" /> № плав. карты</div>
+            </form>
+        </div>
+    </div>
+
+    <!---------2--Форма для Рассчёта количества шихты на выплавку---------------------->
+    <div class="popup" id="kanav">
+        <div class="popup_bg" id="kanav_bg"></div>
+        <div class="form">
+            <img class="close_ready" src="img/close.png">
+            <form name="kanava" id="add_kanava" action="scrap.js" autocomplete="on" method="post" onsubmit="teor(); return false;">
+                <div class="legend">Расчёт массы шихты</div>
+                <div class="add">
+                    <b>Годное:</b><br>
+                    <input name="god" type="number" step="any" min="0.1" max="100" placeholder="вес" value="" style="width: 7em" required autofocus>масса годного, т<br>
+                    <hr>
+                </div>
+                <div class="add"><b>Изложницы</b></div>
+                <div class="izl">
+                    <div>Развес <input name="iz1" type="number" step="any" min="0" max="15" placeholder="вес" value="3.5">т</div>
+                    <div><input name="izk1" type="number" min="0" max="20" placeholder="шт." value="">шт</div>
+                    <div>Развес <input name="iz2" type="number" step="any" min="0" max="15" placeholder="вес" value="4.3">т</div>
+                    <div><input name="izk2" type="number" min="0" max="20" placeholder="шт." value="">шт</div>
+                    <div>Развес <input name="iz3" type="number" step="any" min="0" max="15" placeholder="вес" value="6.2">т</div>
+                    <div><input name="izk3" type="number" min="0" max="20" placeholder="шт." value="">шт</div>
+                </div>
+                <div class="add">
+                    <b><span id="kanava"></span></b><br>
+                    <hr>
+                </div>
+                <div class="add"><b> Отходы, кг/т годного: </b></div>
+                <div class="add"><input name="nedol" type="number" step="any" min="0" max="100" placeholder="Масса, кг" value="30">НЕДОЛИВОК<b id="nedol"></b></div>
+                <div class="add"><input name="litn" type="number" onechange="total()" step="any" min="0" max="50" placeholder="Масса, кг" value="16">ЛИТНИКИ<b id="litn"></b></div>
+                <div class="add"><input name="scrap_r" type="number" step="any" min="0" max="50" placeholder="Масса, кг" value="3">СКРАП разливки
+                    <b id="scrap_r"></b></div>
+                <div class="add"><input name="scrap_sh" type="number" step="any" min="0" max="100" placeholder="Масса, кг" value="14">СКРАП из шлака<b id="scrap_sh"></b></div>
+                <div class="add"><input name="ugar" type="number" step="1" min="0" max="500" placeholder="Масса, кг" value="100">УГАР<b id="ugar"></b></div>
+                <div class="add">
+                    <b><span id="resume"></span></b>
+                </div>
+                <div class="chami">
+                    <div class="cham"><input type="reset" name="res" class="sub" value="Очистить" /></div>
+                    <div class="cham"><input type="submit" name="subm" class="sub" value="Рассчёт" /></div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!---------3--Форма Ввод шихты и ферросплавов плавки------------------------------->
+    <div class="popup" id="material">
+        <div class="popup_bg" id="material_bg"></div>
+        <div class="form">
+            <!--Создание всплывающей блок формы-->
+            <img class="close_ready" src="img/close.png">
+            <form action="scrap.js" autocomplete="off" name="add_material" id="add_material" method="post" onsubmit="addRow(); return false;">
+                <div class="legend">Данные по материалу</div>
+                <div class="select">
+                    <select name="kc" size="1">
+                        <option value="1">Полное окисление</option>
+                        <option value="2">Переплав отходов</option>
+                        <option value="3">Индукционная печь</option>
+                    </select>метод
+                </div>
+                <div class="chami">
+                    <div><input type="radio" name="sh_f" id="lom" value="shiht" checked /><label for="lom">шихта</label></div>
+                    <div><input type="radio" name="sh_f" id="ferro" value="fert" /><label for="ferro">ферро</label></div>
+                    <div class="plavka"><input type="text" name="vid" id="vid" placeholder="Группа" value="" tabindex="1" required autofocus /></div>
+                    <div>материал</div>
+                    <div class="plavka"><input type="text" name="pl" id="pl" placeholder="Партия" value="" tabindex="2" /></div>
+                    <div>№ партии</div>
+                    <div class="plavka"><input type="number" step="any" min="0" max="100" name="m" id="m" placeholder="Масса, т" value="" tabindex="3" required /></div>
+                    <div>масса, т</div>
+                    <div class="plavka"><input type="number" step="any" min="0" max="100" name="zas" id="zas" placeholder="Засор, %" value="" tabindex="4" required /></div>
+                    <div>засор, %</div>
+                    <div><input type="number" step="any" min="0" max="100" name="c" id="c" placeholder="C %" value="" tabindex="5" />C%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="ni" id="ni" placeholder="Ni %" value="" tabindex="6" />Ni%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="cr" id="cr" placeholder="Cr %" value="" tabindex="7" />Cr%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="mo" id="mo" placeholder="Mo %" value="" tabindex="8" />Mo%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="p" id="p" placeholder="P %" value="" tabindex="9" />P%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="cu" id="cu" placeholder="Cu %" value="" tabindex="10" />Cu%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="mn" id="mn" placeholder="Mn %" value="" tabindex="11" />Mn%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="w" id="w" placeholder="W %" value="" tabindex="12" />W%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="v" id="v" placeholder="V %" value="" tabindex="13" />V%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="co" id="co" placeholder="Co %" value="" tabindex="14" />Co%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="si" id="si" placeholder="Si %" value="" tabindex="15" />Si%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="ti" id="ti" placeholder="Ti %" value="" tabindex="16" />Ti%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="al" id="al" placeholder="Al %" value="" tabindex="17" />Al%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="nb" id="nb" placeholder="Nb %" value="" tabindex="18" />Nb%</div>
+                    <div><input type="reset" name="res" class="sub" value="Очистить" /></div>
+                    <div><input type="submit" name="subm" class="sub" value="Добавить" /></div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!---------5--Форма Ввод итоговых значений плавки---------------------------------->
+    <div class="popup" id="add_pp">
+        <div class="popup_bg" id="add_pp_bg"></div>
+        <div class="form">
+            <img class="close_ready" src="img/close.png">
+            <form action="scrap.js" autocomplete="off" name="itog" id="itog" method="post" onsubmit="addItog(); return false;">
+                <div class="legend">Данные п/продукта</div>
+                <div class="add"><input type="number" name="Mpp" step="any" min="0" max="100" title="Введите полученный вес полупродукта" value="" form="itog" tabindex="1" required autofocus />Вес полупродукта, т</div>
+                <div class="chami">
+                    <div><input type="number" name="cham_el" step="any" min="0" max="100" value="" form="itog" tabindex="2" />C%</div>
+                    <div><input type="number" name="cham_el" step="any" min="0" max="100" value="" form="itog" tabindex="3" />Ni%</div>
+                    <div><input type="number" name="cham_el" step="any" min="0" max="100" value="" form="itog" tabindex="4" />Cr%</div>
+                    <div><input type="number" name="cham_el" step="any" min="0" max="100" value="" form="itog" tabindex="5" />Mo%</div>
+                    <div><input type="number" name="cham_el" step="any" min="0" max="100" value="" form="itog" tabindex="6" />P%</div>
+                    <div><input type="number" name="cham_el" step="any" min="0" max="100" value="" form="itog" tabindex="7" />Cu%</div>
+                    <div><input type="number" name="cham_el" step="any" min="0" max="100" value="" form="itog" tabindex="8" />Mn%</div>
+                    <div><input type="number" name="cham_el" step="any" min="0" max="100" value="" form="itog" tabindex="9" />W%</div>
+                    <div><input type="number" name="cham_el" step="any" min="0" max="100" value="" form="itog" tabindex="10" />V%</div>
+                    <div><input type="number" name="cham_el" step="any" min="0" max="100" value="" form="itog" tabindex="11" />Co%</div>
+                    <div><input type="number" name="cham_el" step="any" min="0" max="100" value="" form="itog" tabindex="12" />Si%</div>
+                    <div><input type="number" name="cham_el" step="any" min="0" max="100" value="" form="itog" tabindex="13" />Ti%</div>
+                    <div><input type="number" name="cham_el" step="any" min="0" max="100" value="" form="itog" tabindex="14" />Al%</div>
+                    <div><input type="number" name="cham_el" step="any" min="0" max="100" value="" form="itog" tabindex="15" />Nb%</div>
+                    <div><input type="reset" name="res" class="sub" value="Очистить" /></div>
+                    <div><input type="submit" name="subm" class="sub" value="Добавить" /></div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!---------6--Форма для расчёта добавки ферросплавов плавки------------------------------->
+    <div class="popup" id="material_ferro">
+        <div class="popup_bg" id="material_ferro_bg"></div>
+        <div class="form">
+            <!--Создание всплывающей блок формы-->
+            <img class="close_ready" src="img/close.png">
+            <div class="legend">Данные по материалу</div>
+            <form action="scrap.js" autocomplete="off" name="fsplav" id="fsplav" method="post" onsubmit="compare(); return false;">
+                <div class="select">
+                    <select name="kc" size="1">
+                        <option value="2">Переплав отходов</option>
+                        <option value="1">Полное окисление</option>
+                        <option value="3">Индукционная печь</option>
+                    </select>метод
+                </div>
+                <div class="chami">
+                    <div><input type="radio" name="sh_f" value="shiht" />шихта</div>
+                    <div><input type="radio" name="sh_f" value="fert" checked />ферро</div>
+                    <div class="plavka"><input type="text" name="vid" placeholder="Материал" value="" tabindex="1" required autofocus /></div>
+                    <div>материал</div>
+                    <div class="plavka"><input type="text" name="pl" placeholder="Партия" value="" tabindex="2" /></div>
+                    <div>№ партии</div>
+                    <div class="plavka"><input type="number" step="any" min="0" max="100" name="m" placeholder="Масса, т" value="" tabindex="3" /></div>
+                    <div>масса, т</div>
+                    <div class="plavka"><input type="number" step="any" min="0" max="100" name="zas" placeholder="Засор, %" value="" tabindex="4" /></div>
+                    <div>засор, %</div>
+                    <div><input type="number" step="any" min="0" max="100" name="c" placeholder="C %" value="" tabindex="3" />C%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="ni" placeholder="Ni %" value="" tabindex="4" />Ni%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="cr" placeholder="Cr %" value="" tabindex="5" />Cr%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="mo" placeholder="Mo %" value="" tabindex="6" />Mo%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="p" placeholder="P %" value="" tabindex="7" />P%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="cu" placeholder="Cu %" value="" tabindex="8" />Cu%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="mn" placeholder="Mn %" value="" tabindex="9" />Mn%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="w" placeholder="W %" value="" tabindex="10" />W%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="v" placeholder="V %" value="" tabindex="11" />V%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="co" placeholder="Co %" value="" tabindex="12" />Co%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="si" placeholder="Si %" value="" tabindex="13" />Si%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="ti" placeholder="Ti %" value="" tabindex="14" />Ti%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="al" placeholder="Al %" value="" tabindex="15" />Al%</div>
+                    <div><input type="number" step="any" min="0" max="100" name="nb" placeholder="Nb %" value="" tabindex="16" />Nb%</div>
+                    <div><input type="reset" name="res" class="sub" value="Очистить" form="fsplav" /></div>
+                    <div><input type="submit" name="subm" class="sub" value="Добавить" form="fsplav" /></div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!------------Всплывающий блок предупреждения-------------------------------------->
+    <div onclick="show('none', '')" id="wrap"></div>
+    <!--Задний прозрачный фон-->
+    <div id="window">
+        <!-- Картинка крестика-->
+        <img class="close" onclick="show('none', '')" src="img/close.png"><br>
+        <div id="mess"></div>
+    </div>
+    <!--Само окно-->
+
+    <!------------Всплывающий блок ДА-НЕТ---------------------------------------------->
+    <div onclick="show_YN('none', '', 'y')" id="wrap_YN"></div>
+    <div id="window_YN" class="alert">
+        <!-- Картинка крестика-->
+        <img class="warning" src="img/warning0.png"><br>
+        <div id="mess_YN"></div>
+        <center>
+            <button class="sub" name="yes" onclick="show_YN('none', '', 'y')">Продолжить</button>&nbsp; &nbsp; &nbsp; &nbsp;
+            <button class="sub" name="no" onclick="show_YN('none', '', 'n')">Изменить</button>
+        </center>
+    </div>
+    <!--Само окно-->
+    <aside></aside>
+</body>
+
+</html>
