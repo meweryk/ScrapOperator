@@ -440,12 +440,12 @@ function addItog() {
 }
 
 function compare() {
-	var i, d_pr, d_m, cham_el, f_splav, mass_fs, fs;
+    var i, d_pr, d_m, cham_el, f_splav, mass_fs, fs;
     cham_el = ['C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'];
     d_pr = []; //массив разницы % содержания элементов в заданном и полупродукте
     d_m = []; //массив разницы массы содержания элементов в заданном и полупродукте
-	mass_fs = []; //массив с данными по добавляемым ферросплавам
-	fs = []; // массив добавляемого ферросплава
+    mass_fs = []; //массив с данными по добавляемым ферросплавам
+    fs = []; // массив добавляемого ферросплава
     for (i = 0; i < cham_aver.length; i++) {
         d_pr[i] = cham_pp[i + 1] - cham_aver[i];
         if (d_pr[i] < 0) {
@@ -454,27 +454,41 @@ function compare() {
             d_m[i] = 0;
         }
     }
-	alert(d_m);
-	f_splav = d.forms.fsplav; //обьект со значениями с формы fsplav для расчёта ферросплавов
-	for (i = 0; i < f_splav.elements.length - 2; i++) {
+    alert(d_m);
+}
+
+var col = 0; //количество рассчитываемых добавок ферросплавов
+function ferrosplav() {
+    col++;
+    var i, f_splav, mass_fs, fs;
+    fs = new Array(21);
+    f_splav = d.forms.fsplav; //обьект со значениями с формы fsplav для расчёта ферросплавов
+    for (i = 0; i < f_splav.elements.length - 2; i++) {
         if ((i === 0) || (i === 3) || (i === 4)) {
-			fs.push(f_splav.elements[i].value); //сняли данные с формы и добавили элемент в конец массива
-		} else if (i === 1) {
-			fs.push(f_splav.elements.sh_f.value);
-			i++;
-		} else if (i === 6) {
-			fs.push(check(f_splav.elements[i].value));
-			fs.push((fs[4] * (1 - fs[5] / 100)).toFixed(3));
-		} else {
-			fs.push(check(f_splav.elements[i].value));
-		} //[способ, вид, название, партия, масса, засор, масса без засора, 'C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'] всего 21 элемент (0....20)
+            fs.push(f_splav.elements[i].value); //сняли данные с формы и добавили элемент в конец массива
+        } else if (i === 1) {
+            fs.push(f_splav.elements.sh_f.value);
+            i++;
+        } else if (i === 6) {
+            fs.push(check(f_splav.elements[i].value));
+            fs.push((fs[4] * (1 - fs[5] / 100)).toFixed(3));
+        } else {
+            fs.push(check(f_splav.elements[i].value));
+        } //[способ, вид, название, партия, масса, засор, масса без засора, 'C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'] всего 21 элемент (0....20)
     }
     alert(fs);
-	/*var sum_proc = summa(cham) - cham[0];
-    if (sum_proc > 100) {
-        mess = "Содержание легирующих элементов в материале " + sum_proc + "% превышает 100%, откорректируйте хим. состав";
+    var x = 0; //сумма элементов
+    for (var i = 7; i < fs.length; i++) {
+        x += fs[i];
+    }
+    alert(x);
+    if (x > 100) {
+        mess = "Содержание легирующих элементов в материале " + x + "% превышает 100%, откорректируйте хим. состав";
+        alert(mess);
         show('block', mess);
-        cham.length = 0;
+        fs.length = 0;
+        nom.length--;
+        alert(nom);
     } //проверка на содержание хим. элементов больше 100%*/
 }
 /*--1 создание массива с данными хим.состава полупродукта (все элементы по порядку в форме кроме кнопок)*/
@@ -637,7 +651,7 @@ $(function() { // Ждём загрузки страницы
     $("#chamgod_bg").click(function() { // Событие клика на затемненный фон	   
         $("#chamgod").fadeOut(500); // Медленно убираем всплывающее окно
     });
-    $("#ready").click(function() { // Событие клика на затемненный фон	   
+    $("#ready").click(function() { // Событие клика на "добавить"	   
         $("#chamgod").fadeOut(500); // Медленно убираем всплывающее окно
     });
     $(".close_ready").click(function() { // Событие клика на затемненный фон	   
@@ -750,9 +764,14 @@ function showPopup5() {
 $(function() { // Ждём загрузки страницы
     $("#material_ferro_bg").click(function() { // Событие клика на затемненный фон	   
         $("#material_ferro").fadeOut(500); // Медленно убираем всплывающее окно
+        nom.length = nom.length - 1;
+    });
+    $("#ready_fer").click(function() { // Событие клика на "добавить"
+        $("#material_ferro").fadeOut(500); // Медленно убираем всплывающее окно
     });
     $(".close_ready").click(function() { // Событие клика на затемненный фон
         $("#material_ferro").fadeOut(500); // Медленно убираем всплывающее окно
+        nom.length = nom.length - 1;
     });
 });
 
@@ -772,9 +791,9 @@ function showPopup6(j) {
     $(".chami").css("grid-template-rows", "repeat(10, 1fr)");
     $(".chami").css("grid-template-columns", "1fr 1fr");
     $("#material_ferro").fadeIn(500); // Медленно выводим изображение
+    //$("#material_ferro .chami div:eq(j) input").attr("value", j);
     nom.push(check(j)); //добавили элемент в конец массива 
     alert(nom);
-	
 }
 
 //-7--Вывод кнопок для расчёта ферросплавов --------------------------------------------------------------
