@@ -244,19 +244,19 @@
                         <p>Выберите необходимый элемент для расчёта, в открывшейся форме введите хим.состав ферросплава. После ввода необходимых элементов нажмите кнопку <i>"Рассчёт"</i>.</p>
                     </div>
                     <div class="row">
-                        <div class="cell" onclick="showPopup6('0');">C%</div>
-                        <div class="cell" onclick="showPopup6('1');">Ni%</div>
-                        <div class="cell" onclick="showPopup6('2');">Cr%</div>
-                        <div class="cell" onclick="showPopup6('3');">Mo%</div>
-                        <div class="cell" onclick="showPopup6('4');">Cu%</div>
-                        <div class="cell" onclick="showPopup6('5');">Mn%</div>
-                        <div class="cell" onclick="showPopup6('6');">W%</div>
-                        <div class="cell" onclick="showPopup6('7');">V%</div>
+                        <div class="cell" onclick="showPopup6(0);">C%</div>
+                        <div class="cell" onclick="showPopup6(1);">Ni%</div>
+                        <div class="cell" onclick="showPopup6(2);">Cr%</div>
+                        <div class="cell" onclick="showPopup6(3);">Mo%</div>
+                        <div class="cell" onclick="showPopup6(4);">Cu%</div>
+                        <div class="cell" onclick="showPopup6(5);">Mn%</div>
+                        <div class="cell" onclick="showPopup6(6);">W%</div>
+                        <div class="cell" onclick="showPopup6(7);">V%</div>
                         <div class="cell" onclick="showPopup6(8);">Co%</div>
-                        <div class="cell" onclick="showPopup6('9');">Si%</div>
-                        <div class="cell" onclick="showPopup6('10');">Ti%</div>
-                        <div class="cell" onclick="showPopup6('11');">Al%</div>
-                        <div class="cell" onclick="showPopup6('12');">Nb%</div>
+                        <div class="cell" onclick="showPopup6(9);">Si%</div>
+                        <div class="cell" onclick="showPopup6(10);">Ti%</div>
+                        <div class="cell" onclick="showPopup6(11);">Al%</div>
+                        <div class="cell" onclick="showPopup6(12);">Nb%</div>
                         <div>Рассчёт</div>
                     </div>
                 </div>
@@ -483,7 +483,7 @@
             <!--Создание всплывающей блок формы-->
             <img class="close_ready" src="img/close.png">
             <div class="legend">Данные по материалу</div>
-            <form action="scrap.js" autocomplete="off" name="fsplav" id="fsplav" method="post" onsubmit="compare(); return false;">
+            <form action="scrap.js" autocomplete="off" name="fsplav" id="fsplav" method="post" onsubmit="ferrosplav(); return false;">
                 <div class="select">
                     <select name="kc" size="1">
                         <option value="2">Переплав отходов</option>
@@ -517,7 +517,7 @@
                     <div><input type="number" step="any" min="0" max="100" name="al" placeholder="Al %" value="" tabindex="15" />Al%</div>
                     <div><input type="number" step="any" min="0" max="100" name="nb" placeholder="Nb %" value="" tabindex="16" />Nb%</div>
                     <div><input type="reset" name="res" class="sub" value="Очистить" form="fsplav" /></div>
-                    <div><input type="submit" name="subm" class="sub" value="Добавить" form="fsplav" /></div>
+                    <div><input type="submit" name="subm" class="sub" id="ready_fer" value="Добавить" form="fsplav" /></div>
                 </div>
             </form>
         </div>
