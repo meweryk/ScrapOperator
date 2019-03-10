@@ -9,8 +9,13 @@ html {
     min-width: 100%;
     width: auto;
     margin: 0;
-    background: url(../img/Brushed-Metal.jpg) right bottom no-repeat fixed;
-    background-size: 100% 100%;
+    background: #03658b;
+    background: -moz-linear-gradient(bottom, #03658b 0%, #0A3542 100%);
+    background: -webkit-linear-gradient(bottom, #03658b 0%, #0A3542 100%);
+    background: linear-gradient(to top, #03658b 0%, #0A3542 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#8bc0d5', endColorstr='#204b7c', GradientType=0);
+    /*background: url(../img/Brushed-Metal.jpg) right bottom no-repeat fixed;
+    background-size: 100% 100%;*/
 }
 
 body {
@@ -46,7 +51,7 @@ header {
     height: 70%;
 }
 
-section {    
+section {
     padding: 0.1875rem;
     /*margin-bottom: 0.1875rem;*/
 }
@@ -523,7 +528,7 @@ select {
 
 .sub:hover,
 .row>div:hover {
-	color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
     background: linear-gradient(#79a5d1, lightyellow);
 }
 
