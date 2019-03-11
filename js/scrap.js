@@ -465,7 +465,6 @@ function ferrosplav() {
     var i, f_splav, mass_fs, fs;
     fs = new Array();
     f_splav = d.forms.fsplav; //обьект со значениями с формы fsplav для расчёта ферросплавов
-    alert(f_splav.elements.length - 2);
     for (i = 0; i < f_splav.elements.length - 2; i++) {
         if ((i === 0) || (i === 3) || (i === 4)) {
             fs.push(f_splav.elements[i].value); //сняли данные с формы и добавили элемент в конец массива
@@ -484,15 +483,13 @@ function ferrosplav() {
     for (var i = 7; i < fs.length; i++) {
         x += fs[i];
     }
-    alert(x);
     if (x > 100) {
         mess = "Содержание легирующих элементов в материале " + x + "% превышает 100%, откорректируйте хим. состав";
-        alert(mess);
         show('block', mess);
         fs.length = 0;
         nom.length--;
-        alert(nom);
     } //проверка на содержание хим. элементов больше 100%*/
+    alert(nom);
 }
 /*--1 создание массива с данными хим.состава полупродукта (все элементы по порядку в форме кроме кнопок)*/
 function addChamic(obg1) {
