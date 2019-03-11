@@ -543,7 +543,7 @@ select {
 .sub:active,
 .row>div:active {
     color: rgb(0, 0, 0);
-    background: linear-gradient(#bdf0ff, rgb(246, 255, 254));
+    background: linear-gradient(cyan, darkcyan);
 }
 
 .chami {
