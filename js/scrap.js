@@ -402,7 +402,6 @@ function addItog() {
         d.getElementById('fact').getElementsByTagName('th')[1].innerHTML = cham_pp[0] + "т";
         for (i = 1; i < cham_pp.length; i++) {
             if (cham_pp[i] !== 0) {
-                alert(RegExp(d.getElementById('fact').getElementsByTagName('td')[i - 1].innerHTML, 'i'));
                 d.getElementById('fact').getElementsByTagName('td')[i - 1].innerHTML = cham_pp[i] + "%";
                 if ((cham_pp[i] >= him_zad_max[i - 1]) && (him_zad_max[i - 1] !== 0)) {
                     d.getElementById('fact').getElementsByTagName('td')[i - 1].style.background = "#FF7F50";
@@ -584,7 +583,7 @@ function select_K_ass(method, material) {
 
 /*---Обязательно когда нибудь пригодится-----------------------------------------------------------------*/
 /*добавляет функцию для нажатия кнопки к обработчику событий, используя Javascript------------------------*/
-var el = d.getElementById("next");
+/*var el = d.getElementById("next");
 if (el.addEventListener) {
     el.addEventListener("click", addWeight, false);
 } else if (el.attachEvent) {
@@ -601,7 +600,7 @@ function addWeight() {
             Pr[i] = (100 * weight[i] / weight[0]).toFixed(3);
         }
     }
-}
+}*/
 
 /*------------Функция показа сообщений ДА-НЕТ----------------------------------------------------------*/
 /*function show_YN(state, mess, answer) {
