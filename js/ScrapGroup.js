@@ -38,7 +38,7 @@ function tableSearch() {
     var phrase = document.getElementById('search-text'); //получаем значение поля формы
     var regPhrase = new RegExp(phrase.value, 'i'); //передаём в конструктор RegExp            
     if (regPhrase != "/(?:)/i") {
-        $('.acc-body').slideDown(100); //открыли скрытые строки
+        $('.acc-body').slideDown(100); //скрыли строки
     } else {
         $('.acc-body').slideUp(100); //открыли скрытые строки
     } // сверка значения, если поле поиска пустое        	
