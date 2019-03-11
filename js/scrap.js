@@ -457,12 +457,11 @@ function compare() {
     alert(d_m);
 }
 
-var col = 0; //количество рассчитываемых добавок ферросплавов
 function ferrosplav() {
-    col++;
     var i, f_splav, mass_fs, fs;
-    fs = new Array(21);
+    fs = new Array();
     f_splav = d.forms.fsplav; //обьект со значениями с формы fsplav для расчёта ферросплавов
+    alert(f_splav.elements.length - 2);
     for (i = 0; i < f_splav.elements.length - 2; i++) {
         if ((i === 0) || (i === 3) || (i === 4)) {
             fs.push(f_splav.elements[i].value); //сняли данные с формы и добавили элемент в конец массива
@@ -764,14 +763,18 @@ function showPopup5() {
 $(function() { // Ждём загрузки страницы
     $("#material_ferro_bg").click(function() { // Событие клика на затемненный фон	   
         $("#material_ferro").fadeOut(500); // Медленно убираем всплывающее окно
-        nom.length = nom.length - 1;
+        nom.length = nom.length - 1; //убираем название элемента если ввода не с формы было
     });
     $("#ready_fer").click(function() { // Событие клика на "добавить"
-        $("#material_ferro").fadeOut(500); // Медленно убираем всплывающее окно
+        if (RegExp($("#material_ferro .chami div:eq(2) input").prop("value"), 'i') != "/(?:)/i") {
+            $("#material_ferro").fadeOut(500); // Медленно убираем всплывающее окно если в форме заполнены обязательные поля
+        } else {
+            return;
+        }
     });
     $(".close_ready").click(function() { // Событие клика на затемненный фон
         $("#material_ferro").fadeOut(500); // Медленно убираем всплывающее окно
-        nom.length = nom.length - 1;
+        nom.length = nom.length - 1; //убираем название элемента если ввода не с формы было
     });
 });
 
@@ -791,9 +794,7 @@ function showPopup6(j) {
     $(".chami").css("grid-template-rows", "repeat(10, 1fr)");
     $(".chami").css("grid-template-columns", "1fr 1fr");
     $("#material_ferro").fadeIn(500); // Медленно выводим изображение
-    //$("#material_ferro .chami div:eq(j) input").attr("value", j);
-    nom.push(check(j)); //добавили элемент в конец массива 
-    alert(nom);
+    nom.push(check(j)); //добавили номер названия элемента в конец массива
 }
 
 //-7--Вывод кнопок для расчёта ферросплавов --------------------------------------------------------------
