@@ -488,8 +488,10 @@ function ferrosplav() {
         show('block', mess);
         fs.length = 0;
         nom.length--;
+        fs.length = 0;
     } //проверка на содержание хим. элементов больше 100%*/
     alert(nom);
+    return;
 }
 /*--1 создание массива с данными хим.состава полупродукта (все элементы по порядку в форме кроме кнопок)*/
 function addChamic(obg1) {
