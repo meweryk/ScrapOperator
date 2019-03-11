@@ -402,6 +402,7 @@ function addItog() {
         d.getElementById('fact').getElementsByTagName('th')[1].innerHTML = cham_pp[0] + "т";
         for (i = 1; i < cham_pp.length; i++) {
             if (cham_pp[i] !== 0) {
+                alert(RegExp(d.getElementById('fact').getElementsByTagName('td')[i - 1].innerHTML, 'i'));
                 d.getElementById('fact').getElementsByTagName('td')[i - 1].innerHTML = cham_pp[i] + "%";
                 if ((cham_pp[i] >= him_zad_max[i - 1]) && (him_zad_max[i - 1] !== 0)) {
                     d.getElementById('fact').getElementsByTagName('td')[i - 1].style.background = "#FF7F50";
@@ -410,6 +411,9 @@ function addItog() {
                 } else {
                     d.getElementById('fact').getElementsByTagName('td')[i - 1].style.background = "none";
                 }
+            } else {
+                d.getElementById('fact').getElementsByTagName('td')[i - 1].innerHTML = "";
+                d.getElementById('fact').getElementsByTagName('td')[i - 1].style.background = "none";
             }
         }
     }
@@ -457,6 +461,7 @@ function compare() {
     alert(d_m);
 }
 
+/*--6 создание массива с данными хим.состава для расчёта добавки ферросплавов */
 function ferrosplav() {
     var i, f_splav, mass_fs, fs;
     fs = new Array();
@@ -713,6 +718,13 @@ $(function() { // Ждём загрузки страницы
     $("#material_bg").click(function() { // Событие клика на затемненный фон	   
         $("#material").fadeOut(500); // Медленно убираем всплывающее окно
     });
+    $("#material .chami div:eq(25) .sub").click(function() { // Событие клика на "добавить"
+        if ((RegExp($("#material .chami div:eq(2) input").prop("value"), 'i') != "/(?:)/i") && (RegExp($("#material .chami div:eq(6) input").prop("value"), 'i') != "/(?:)/i") && (RegExp($("#material .chami div:eq(8) input").prop("value"), 'i') != "/(?:)/i")) {
+            $("#material").fadeOut(500); // Медленно убираем всплывающее окно если в форме заполнены обязательные поля
+        } else {
+            return;
+        }
+    });
     $(".close_ready").click(function() { // Событие клика на затемненный фон	   
         $("#material").fadeOut(500); // Медленно убираем всплывающее окно
     });
@@ -744,6 +756,13 @@ $(function() { // Ждём загрузки страницы
     $("#add_pp_bg").click(function() { // Событие клика на затемненный фон	   
         $("#add_pp").fadeOut(500); // Медленно убираем всплывающее окно
     });
+    $("#add_pp .chami div:eq(15) .sub").click(function() { // Событие клика на "добавить"
+        if (RegExp($("#add_pp .add input").prop("value"), 'i') != "/(?:)/i") {
+            $("#add_pp").fadeOut(500); // Медленно убираем всплывающее окно если в форме заполнены обязательные поля
+        } else {
+            return;
+        }
+    });
     $(".close_ready").click(function() { // Событие клика на затемненный фон	   
         $("#add_pp").fadeOut(500); // Медленно убираем всплывающее окно
     });
@@ -765,7 +784,7 @@ $(function() { // Ждём загрузки страницы
         $("#material_ferro").fadeOut(500); // Медленно убираем всплывающее окно
         nom.length = nom.length - 1; //убираем название элемента если ввода не с формы было
     });
-    $("#ready_fer").click(function() { // Событие клика на "добавить"
+    $("#material_ferro .chami div:eq(25) .sub").click(function() { // Событие клика на "добавить"
         if (RegExp($("#material_ferro .chami div:eq(2) input").prop("value"), 'i') != "/(?:)/i") {
             $("#material_ferro").fadeOut(500); // Медленно убираем всплывающее окно если в форме заполнены обязательные поля
         } else {
