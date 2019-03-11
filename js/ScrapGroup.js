@@ -102,5 +102,5 @@ $(function() {
         }
         scrap[i] = him;
     }
-    alert(scrap[4]);
+    //alert(scrap[4]);
 });
