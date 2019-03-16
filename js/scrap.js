@@ -27,7 +27,7 @@ lom - массив с данными по добавляемому лому;
 */
 /*globals $:false */
 
-var window, d, document, god, nedol, litn, scrap_r, scrap_sh, ugar, sum, proc, him, mess, plane, sum_proc_god, weight, Pr, zav, el_zav, pp, weight_pp, Prognoz, cham_aver, cham_pp, q, q7;
+var window, d, document, god, nedol, litn, scrap_r, scrap_sh, ugar, sum, proc, him, mess, plane, sum_proc_god, weight, Pr, zav, el_zav, pp, weight_pp, Prognoz, cham_aver, cham_pp, ferros, q, q7;
 d = document;
 $(function() {
     $(window).ready(ChangeSize); // событие загрузки html, определяем размер окна таблицы
@@ -54,6 +54,7 @@ function ChangeSize() {
     } //прокрутка если окно меньше ширины окна (для мобильных)*/
 }
 sum = []; // массив суммарными данными по шихте
+ferros = []; //массив с данными по добавляесым феросплавам для расчёта
 him = addCham();
 plane = teor();
 zav = -1;
@@ -442,6 +443,22 @@ function addItog() {
     show('block', mess);
 }
 
+/*--1 создание массива с данными хим.состава полупродукта (все элементы по порядку в форме кроме кнопок)*/
+function addChamic(obg1) {
+    var cham;
+    cham = []; //массив с содержанием хим. элем.  
+    for (var i = 0; i < obg1.elements.length - 2; i++) {
+        cham.push(check(obg1.elements[i].value)); //сняли данные с формы и добавили элемент в конец массива	
+    }
+    var sum_proc = summa(cham) - cham[0];
+    if (sum_proc > 100) {
+        mess = "Содержание легирующих элементов в материале " + sum_proc + "% превышает 100%, откорректируйте хим. состав";
+        show('block', mess);
+        cham.length = 0;
+    } //проверка на содержание хим. элементов больше 100%
+    return cham; //возвращаем массив с химсоставом материала cham[]
+}
+
 function compare() {
     var i, d_pr, d_m, cham_el, f_splav, mass_fs, fs;
     cham_el = ['C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'];
@@ -478,7 +495,6 @@ function ferrosplav() {
             fs.push(check(f_splav.elements[i].value));
         } //[способ, вид, название, партия, масса, засор, масса без засора, 'C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'] всего 21 элемент (0....20)
     }
-    alert(fs);
     var x = 0; //сумма элементов
     for (var i = 7; i < fs.length; i++) {
         x += fs[i];
@@ -491,67 +507,27 @@ function ferrosplav() {
         fs.length = 0;
     } //проверка на содержание хим. элементов больше 100%*/
     alert(nom);
-    return;
-}
-/*--1 создание массива с данными хим.состава полупродукта (все элементы по порядку в форме кроме кнопок)*/
-function addChamic(obg1) {
-    var cham;
-    cham = []; //массив с содержанием хим. элем.  
-    for (var i = 0; i < obg1.elements.length - 2; i++) {
-        cham.push(check(obg1.elements[i].value)); //сняли данные с формы и добавили элемент в конец массива	
-    }
-    var sum_proc = summa(cham) - cham[0];
-    if (sum_proc > 100) {
-        mess = "Содержание легирующих элементов в материале " + sum_proc + "% превышает 100%, откорректируйте хим. состав";
-        show('block', mess);
-        cham.length = 0;
-    } //проверка на содержание хим. элементов больше 100%
-    return cham; //возвращаем массив с химсоставом материала cham[]
-}
-
-/*------------Обратотка исключений-------------------------------------------------------------------*/
-//проверка на число, если не число или пустое поле или не объявлено (undefinded) - возвращает 0
-function check(n) {
-    if ((n !== n) || (n === "") || (parseFloat(n) !== parseFloat(n))) {
-        return 0;
-    } //обработка исключений, не число и пустое поле в форме
-    return parseFloat(n);
-}
-
-//сумма процентов по элементам в материале для проверки на содержание хим. элементов  больше 100%
-function summa(y) {
-    var x = 0;
-    for (var i = 0; i < y.length; i++) {
-        x += y[i];
-    }
-    return x;
-}
-
-//проверка превышения химсостава добавки по отношению к заданному
-function Mess(zn1, zn2, zn3) {
-    zn3 = zn3.toLocaleUpperCase();
-    if ((sum_proc_god > 0) && (zn2 > zn1)) {
-        mess = zn3 + "=" + zn2 + "% в завалке превышает заданное " + zn1 + "%. ";
-        return mess;
-    }
+    let k = nom.length - 1;
+    ferros[k] = fs; //массив с данными по добавляесым феросплавам для расчёта
+    alert(ferros);
     return;
 }
 
-/*------------Функция показа сообщений----------------------------------------------------------------*/
-function show(state, mess) {
-    if (state == 'none') {
-        div = d.getElementById('alert_mess');
-        div.parentNode.removeChild(div);
-    } else {
-        var div = d.createElement("div");
-        div.className = "alert alert-success";
-        div.id = "alert_mess";
-        div.innerHTML = mess;
-        d.getElementById("mess").insertBefore(div, d.getElementById("mess").firstChild);
-        mess = "";
+
+function payment() {
+    var i, cham_el;
+    d_m;
+    d_m = compare(); //функция расчёта необходимого количества легирующих элементов
+    cham_el = ['C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'];
+    for (i = 0; i < nom.length; i++) {
+        let fs = ferros[i]; //массив с ферросплавом
+        let k = nom[i]; //рассчитываемый элемент
+        let metod = ferros[i][0];
+        let K_ass = select_K_ass(metod, "fert"); //получаем коэффициенты усвоения для материала
+        ferros[i][4] = (d_m[k] / (ferros[i][k + 7] * K_ass[k])).toFixed(3);
+        ferros[i][6] = ferros[i][4]
+
     }
-    d.getElementById('window').style.display = state;
-    d.getElementById('wrap').style.display = state;
 }
 
 /*функция подбора коэффициентов усвоения в зависимости от метода выплавки и вида материала-------------*/
@@ -580,69 +556,7 @@ function select_K_ass(method, material) {
 
 
 
-/*---Обязательно когда нибудь пригодится-----------------------------------------------------------------*/
-/*добавляет функцию для нажатия кнопки к обработчику событий, используя Javascript------------------------*/
-/*var el = d.getElementById("next");
-if (el.addEventListener) {
-    el.addEventListener("click", addWeight, false);
-} else if (el.attachEvent) {
-    el.attachEvent('onclick', addWeight);
-}
 
-function addWeight() {
-    var K_ass = [0.939, 0.2, 0.98, 0.95, 0.8, 0.9, 0.97, 0.95, 0.9, 0.7, 0.9, 0.97]; //Ni assimilation (усвоение элементов при плавлении)
-    weight = [];
-    Pr = [];
-    for (var i = 0; i < K_ass.length; i++) {
-        weight[i] = (K_ass[i] * sum[i + 2]).toFixed(3);
-        if (i > 0) {
-            Pr[i] = (100 * weight[i] / weight[0]).toFixed(3);
-        }
-    }
-}*/
-
-/*------------Функция показа сообщений ДА-НЕТ----------------------------------------------------------*/
-/*function show_YN(state, mess, answer) {
-	if (state == 'none') {
-		div = d.getElementById('alert_mess_YN');
-		div.parentNode.removeChild(div);
-	} else {
-		var div = d.createElement("div");
-		div.className = "alert_YN alert-success";
-		div.id = "alert_mess_YN";
-		div.innerHTML = mess;
-		d.getElementById("mess_YN").insertBefore(div, d.getElementById("mess_YN").firstChild);
-		mess = "";
-	}
-	d.getElementById('window_YN').style.display = state;
-	d.getElementById('wrap_YN').style.display = state;
-	if (answer == 'n') {
-		return 0;
-	} else if (answer == 'y') {
-		return 1;
-	} else {
-		return 0;
-		}
-	
-}*/
-
-/*--2 создание массива с данными хим.состава полупродукта (все элементы с одним именем имени в форме)*/
-/*function addChamic(obg1) {
-	var cham, cham_pp;
-	cham = []; //массив с содержанием хим. элем.  
-	cham_pp = [];
-	cham_pp = obg1.elements.cham_el;
-	for (var i = 0; i < cham_pp.length; i++) {		
-		cham.push(check(cham_pp[i].value)); // сняли данные с формы и добавили элемент в конец массива	
-	}
-	var sum_proc = summa(cham);
-	if (sum_proc > 100) {
-		mess = "Содержание легирующих элементов в материале " + sum_proc + "% превышает 100%, откорректируйте хим. состав";
-		show('block', mess);
-		cham.length = 0;
-	} //проверка на содержание хим. элементов больше 100%
-	return cham; //возвращаем массив с химсоставом материала cham[]
-}*/
 
 
 
@@ -824,3 +738,115 @@ function showPopup7() {
         q7 = 0;
     }
 }
+
+
+/*------------Обратотка исключений-------------------------------------------------------------------*/
+//проверка на число, если не число или пустое поле или не объявлено (undefinded) - возвращает 0
+function check(n) {
+    if ((n !== n) || (n === "") || (parseFloat(n) !== parseFloat(n))) {
+        return 0;
+    } //обработка исключений, не число и пустое поле в форме
+    return parseFloat(n);
+}
+
+//сумма процентов по элементам в материале для проверки на содержание хим. элементов  больше 100%
+function summa(y) {
+    var x = 0;
+    for (var i = 0; i < y.length; i++) {
+        x += y[i];
+    }
+    return x;
+}
+
+//проверка превышения химсостава добавки по отношению к заданному
+function Mess(zn1, zn2, zn3) {
+    zn3 = zn3.toLocaleUpperCase();
+    if ((sum_proc_god > 0) && (zn2 > zn1)) {
+        mess = zn3 + "=" + zn2 + "% в завалке превышает заданное " + zn1 + "%. ";
+        return mess;
+    }
+    return;
+}
+
+/*------------Функция показа сообщений----------------------------------------------------------------*/
+function show(state, mess) {
+    if (state == 'none') {
+        div = d.getElementById('alert_mess');
+        div.parentNode.removeChild(div);
+    } else {
+        var div = d.createElement("div");
+        div.className = "alert alert-success";
+        div.id = "alert_mess";
+        div.innerHTML = mess;
+        d.getElementById("mess").insertBefore(div, d.getElementById("mess").firstChild);
+        mess = "";
+    }
+    d.getElementById('window').style.display = state;
+    d.getElementById('wrap').style.display = state;
+}
+
+
+
+/*---Обязательно когда нибудь пригодится-----------------------------------------------------------------*/
+/*добавляет функцию для нажатия кнопки к обработчику событий, используя Javascript------------------------*/
+/*var el = d.getElementById("next");
+if (el.addEventListener) {
+    el.addEventListener("click", addWeight, false);
+} else if (el.attachEvent) {
+    el.attachEvent('onclick', addWeight);
+}
+
+function addWeight() {
+    var K_ass = [0.939, 0.2, 0.98, 0.95, 0.8, 0.9, 0.97, 0.95, 0.9, 0.7, 0.9, 0.97]; //Ni assimilation (усвоение элементов при плавлении)
+    weight = [];
+    Pr = [];
+    for (var i = 0; i < K_ass.length; i++) {
+        weight[i] = (K_ass[i] * sum[i + 2]).toFixed(3);
+        if (i > 0) {
+            Pr[i] = (100 * weight[i] / weight[0]).toFixed(3);
+        }
+    }
+}*/
+
+/*------------Функция показа сообщений ДА-НЕТ----------------------------------------------------------*/
+/*function show_YN(state, mess, answer) {
+	if (state == 'none') {
+		div = d.getElementById('alert_mess_YN');
+		div.parentNode.removeChild(div);
+	} else {
+		var div = d.createElement("div");
+		div.className = "alert_YN alert-success";
+		div.id = "alert_mess_YN";
+		div.innerHTML = mess;
+		d.getElementById("mess_YN").insertBefore(div, d.getElementById("mess_YN").firstChild);
+		mess = "";
+	}
+	d.getElementById('window_YN').style.display = state;
+	d.getElementById('wrap_YN').style.display = state;
+	if (answer == 'n') {
+		return 0;
+	} else if (answer == 'y') {
+		return 1;
+	} else {
+		return 0;
+		}
+
+}*/
+
+/*--2 создание массива с данными хим.состава полупродукта (все элементы с одним именем имени в форме)*/
+/*function addChamic(obg1) {
+	var cham, cham_pp;
+	cham = []; //массив с содержанием хим. элем.
+	cham_pp = [];
+	cham_pp = obg1.elements.cham_el;
+	for (var i = 0; i < cham_pp.length; i++) {
+		cham.push(check(cham_pp[i].value)); // сняли данные с формы и добавили элемент в конец массива
+	}
+	var sum_proc = summa(cham);
+	if (sum_proc > 100) {
+		mess = "Содержание легирующих элементов в материале " + sum_proc + "% превышает 100%, откорректируйте хим. состав";
+		show('block', mess);
+		cham.length = 0;
+	} //проверка на содержание хим. элементов больше 100%
+	return cham; //возвращаем массив с химсоставом материала cham[]
+}*/
