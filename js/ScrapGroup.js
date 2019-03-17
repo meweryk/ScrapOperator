@@ -102,5 +102,4 @@ $(function() {
         }
         scrap[i] = him;
     }
-    alert(scrap);
 });
