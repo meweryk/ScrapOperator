@@ -388,7 +388,7 @@ function addCham_lom() {
     return cham; //возвращаем массив с химсоставом материала cham[]
 }
 
-/*создание массива с данными по взвешенному полупродукту*/
+/*Заполнение таблицы данными  по взвешенному полупродукту*/
 function addItog() {
     var itog, i, cham_pp_m, him_zad_max, him_zad_min, delta;
     var cham_el = ['C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb']; // массив с названием хим.элементов
@@ -474,7 +474,7 @@ function compare() {
             d_m[i] = 0;
         }
     }
-    alert(d_m);
+    return d_m;
 }
 
 /*--6 создание массива с данными хим.состава для расчёта добавки ферросплавов */
@@ -513,20 +513,20 @@ function ferrosplav() {
     return;
 }
 
-
 function payment() {
     var i, cham_el;
-    d_m;
-    d_m = compare(); //функция расчёта необходимого количества легирующих элементов
+    let d_m = compare(); //функция расчёта необходимого количества легирующих элементов
+    alert(d_m);
     cham_el = ['C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'];
     for (i = 0; i < nom.length; i++) {
         let fs = ferros[i]; //массив с ферросплавом
         let k = nom[i]; //рассчитываемый элемент
         let metod = ferros[i][0];
         let K_ass = select_K_ass(metod, "fert"); //получаем коэффициенты усвоения для материала
-        ferros[i][4] = (d_m[k] / (ferros[i][k + 7] * K_ass[k])).toFixed(3);
-        ferros[i][6] = ferros[i][4]
-
+        alert(k + "------" + K_ass);
+        ferros[i][4] = (d_m[k] * 100 / (ferros[i][k + 7] * K_ass[k])).toFixed(3);
+        ferros[i][6] = ferros[i][4];
+        alert(ferros[i]);
     }
 }
 
