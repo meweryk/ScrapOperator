@@ -474,6 +474,8 @@ function compare() {
             d_m[i] = 0;
         }
     }
+    alert(cham_aver);
+    alert(d_m);
     return d_m;
 }
 
@@ -524,7 +526,7 @@ function payment() {
         let metod = ferros[i][0];
         let K_ass = select_K_ass(metod, "fert"); //получаем коэффициенты усвоения для материала
         alert(k + "------" + K_ass);
-        ferros[i][4] = (d_m[k] * 100 / (ferros[i][k + 7] * K_ass[k])).toFixed(3);
+        ferros[i][4] = -(d_m[k] * 100 / (ferros[i][k + 7] * K_ass[k])).toFixed(3);
         ferros[i][6] = ferros[i][4];
         alert(ferros[i]);
     }
