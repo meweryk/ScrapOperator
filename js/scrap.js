@@ -459,13 +459,15 @@ function addChamic(obg1) {
     return cham; //возвращаем массив с химсоставом материала cham[]
 }
 
+/*Создание массива с разницей массы содержания легирующих элементов и процентов в заданном и полупродукте*/
 function compare() {
-    var i, d_pr, d_m, cham_el, f_splav, mass_fs, fs;
+    var i, d_pr, d_m;
     cham_el = ['C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'];
     d_pr = []; //массив разницы % содержания элементов в заданном и полупродукте
     d_m = []; //массив разницы массы содержания элементов в заданном и полупродукте
+    /* var cham_el, f_splav, mass_fs, fs;
     mass_fs = []; //массив с данными по добавляемым ферросплавам
-    fs = []; // массив добавляемого ферросплава
+    fs = []; // массив добавляемого ферросплава*/
     for (i = 0; i < cham_aver.length; i++) {
         d_pr[i] = cham_pp[i + 1] - cham_aver[i];
         if (d_pr[i] < 0) {
@@ -521,7 +523,6 @@ function payment() {
     alert(d_m);
     cham_el = ['C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'];
     for (i = 0; i < nom.length; i++) {
-        let fs = ferros[i]; //массив с ферросплавом
         let k = nom[i]; //рассчитываемый элемент
         let metod = ferros[i][0];
         let K_ass = select_K_ass(metod, "fert"); //получаем коэффициенты усвоения для материала
@@ -531,6 +532,16 @@ function payment() {
         alert(ferros[i]);
     }
 }
+
+function sum_ferros() {
+    for (let i = 7; i < 21; i++) {
+        for (let J = 0; J < length.ferros; J++) {
+
+        }
+    }
+}
+
+
 
 /*функция подбора коэффициентов усвоения в зависимости от метода выплавки и вида материала-------------*/
 function select_K_ass(method, material) {
