@@ -5,6 +5,7 @@
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
     <title>Scrap Operator</title>
     <link rel="stylesheet" href="css/scrap.css" type="text/css">
+    <link href="jquery-ui.css" rel="stylesheet">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/date_time.js"></script>
     <script type="text/javascript" src="js/scrap.js" defer></script>
@@ -152,7 +153,8 @@
                                     <th align="center">Nb%</th>
                                 </tr>
                             </thead>
-                            <tbody title="Для задания пограничного содержания химических элементов в марке стали введите минимальное и максимальное значения. Расчёты производятся на ниже-средние значения в заданном диапазоне. При отсутствии минимального значения расчёты производятся по максимумальному значению." onclick="showPopup();" style="cursor: pointer;">
+                            <tbody title="Для задания пограничного содержания химических элементов в марке стали введите минимальное и максимальное значения. Расчёты производятся на ниже-средние значения в заданном диапазоне. При отсутствии минимального значения расчёты производятся по максимумальному значению."
+                                onclick="showPopup();" style="cursor: pointer;">
                                 <tr id="max">
                                     <th align="center">MAX</th>
                                     <th align="center">Задано</th>
@@ -233,6 +235,18 @@
                             </tfoot>
                         </table>
                     </div>
+                    <div class="ui-widget">
+                        <div class="ui-state-highlight ui-corner-all" style="display: none; margin-top: .3em; padding: .3em .7em;">
+                            <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                                <strong></strong></p>
+                        </div>
+                    </div>
+                    <div class="ui-widget">
+                        <div class="ui-state-error ui-corner-all" style="display: none; margin-top: .3em; padding: .3em .7em;">
+                            <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+                                <strong></strong></p>
+                        </div>
+                    </div>
                     <!--<center><input id="next" type="button" name="next" class="sub" value="готово" /></center>-->
                 </div>
             </section>
@@ -277,7 +291,9 @@
                         </center>
                     </td>
                     <td>
-                        <center><address>Zaporizhzhya, Ukraine</address> Copyryght &copy; <time datetime="2018">2018</time></center>
+                        <center>
+                            <address>Zaporizhzhya, Ukraine</address> Copyryght &copy; <time datetime="2018">2018</time>
+                        </center>
                     </td>
                     <td>
                         <center>
@@ -423,8 +439,10 @@
                     </select>метод
                 </div>
                 <div class="chami">
-                    <div><input type="radio" name="sh_f" id="lom" value="shiht" checked /><label for="lom">шихта</label></div>
-                    <div><input type="radio" name="sh_f" id="ferro" value="fert" /><label for="ferro">ферро</label></div>
+                    <div><input type="radio" name="sh_f" id="lom" value="shiht" checked /><label for="lom">шихта</label>
+                    </div>
+                    <div><input type="radio" name="sh_f" id="ferro" value="fert" /><label for="ferro">ферро</label>
+                    </div>
                     <div class="plavka"><input type="text" name="vid" id="vid" placeholder="Группа" value="" tabindex="1" required autofocus /></div>
                     <div>материал</div>
                     <div class="plavka"><input type="text" name="pl" id="pl" placeholder="Партия" value="" tabindex="2" /></div>
@@ -554,6 +572,7 @@
     </div>
     <!--Само окно-->
     <aside></aside>
+    <script src="jquery-ui.js"></script>
 </body>
 
 </html>
