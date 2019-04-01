@@ -441,6 +441,8 @@ function addItog() {
         }
     }
     show('block', mess);
+    $(".ui-state-highlight").css("display", "block");
+    $(".ui-state-highlight p strong").text(mess);
 }
 
 /*--1 создание массива с данными хим.состава полупродукта (все элементы по порядку в форме кроме кнопок)*/
