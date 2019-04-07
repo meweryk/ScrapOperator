@@ -288,6 +288,7 @@ function addCham() {
     cham_max = []; //массив с верхней границей хим. элементов
     cham_min = []; //массив с нижней границей хим. элементов
     cham_aver = []; //массив содержания ниже среднего хим. элементов
+    mess = "Содержания хим. элементов в заданном для расчёта добавок (ниже среднего): "
     var cham_el = ['c', 'ni', 'cr', 'mo', 'p', 'cu', 'mn', 'w', 'v', 'co', 'si', 'ti', 'al', 'nb']; // массив с названием хим.элементов
     for (var i = 0; i < cham_el.length; i++) {
         cham_max.push(check(d.getElementById(cham_el[i] + "_max").value)); //добавили элемент в конец массива
@@ -297,7 +298,10 @@ function addCham() {
         } else {
             cham_aver[i] = cham_max[i];
         }
+        mess = mess + cham_el[i] + "-" + cham_aver[i] + "%;  ";
     }
+
+    //обрабатываем исключения
     sum_proc_god = summa(cham_max);
     if (sum_proc_god > 100) {
         mess = "Содержание легирующих элементов в верхней границе годного " + sum_proc_god + "% превышает 100%, откорректируйте хим. состав";
@@ -333,7 +337,7 @@ function addCham() {
         }
     } //проверка на превышение нижней границы верхней
     him = [cham_max, cham_min, cham_aver]; //массив с данными химюсостава (верхняя, нижняя границы)
-    //обрабатываем исключения
+
     //наполняем таблицу если удовлетворяет условиям.
     var tbody_itog1 = d.getElementById('max').getElementsByTagName('td');
     var tbody_itog2 = d.getElementById('min').getElementsByTagName('td');
@@ -344,10 +348,14 @@ function addCham() {
             tbody_itog1[i].innerHTML = " "; //если значение = 0 пустое поле
         }
         if (cham_min[i] > 0) {
-            tbody_itog2[i].innerHTML = cham_min[i] + "%"; //м0еняем значение % в столбце строки на новое
+            tbody_itog2[i].innerHTML = cham_min[i] + "%"; //меняем значение % в столбце строки на новое
         } else {
             tbody_itog2[i].innerHTML = " ";
         }
+    }
+    sum_proc = summa(cham_aver);
+    if (sum_proc != 0) {
+        show_mess(mess, ".ui-state-highlight");
     }
     return him;
 }
@@ -441,8 +449,7 @@ function addItog() {
         }
     }
     show('block', mess);
-    $(".ui-state-highlight").css("display", "block");
-    $(".ui-state-highlight p strong").text(mess);
+    show_mess(mess, ".ui-state-highlight");
 }
 
 /*--1 создание массива с данными хим.состава полупродукта (все элементы по порядку в форме кроме кнопок)*/
@@ -464,7 +471,7 @@ function addChamic(obg1) {
 /*Создание массива с разницей массы содержания легирующих элементов и процентов в заданном и полупродукте*/
 function compare() {
     var i, d_pr, d_m;
-    cham_el = ['C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'];
+    var cham_el = ['C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'];
     d_pr = []; //массив разницы % содержания элементов в заданном и полупродукте
     d_m = []; //массив разницы массы содержания элементов в заданном и полупродукте
     /* var cham_el, f_splav, mass_fs, fs;
@@ -478,8 +485,6 @@ function compare() {
             d_m[i] = 0;
         }
     }
-    alert(cham_aver);
-    alert(d_m);
     return d_m;
 }
 
@@ -502,7 +507,7 @@ function ferrosplav() {
         } //[способ, вид, название, партия, масса, засор, масса без засора, 'C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'] всего 21 элемент (0....20)
     }
     var x = 0; //сумма элементов
-    for (var i = 7; i < fs.length; i++) {
+    for (i = 7; i < fs.length; i++) {
         x += fs[i];
     }
     if (x > 100) {
@@ -527,12 +532,18 @@ function payment() {
     for (i = 0; i < nom.length; i++) {
         let k = nom[i]; //рассчитываемый элемент
         let metod = ferros[i][0];
-        let K_ass = select_K_ass(metod, "fert"); //получаем коэффициенты усвоения для материала
-        alert(k + "------" + K_ass);
+        var K_ass = select_K_ass(metod, "fert"); //получаем коэффициенты усвоения для материала        
         ferros[i][4] = -(d_m[k] * 100 / (ferros[i][k + 7] * K_ass[k])).toFixed(3);
         ferros[i][6] = ferros[i][4];
         alert(ferros[i]);
     }
+    /*Вывод используемых для расчёта коэффициентов усвоения легирующих элементов*/
+    mess = "Приняты коэффициенты усвоения для расчёта добавок: ";
+    for (let n = 0; n < K_ass.length; n++) {
+        mess = mess + cham_el[n] + "-" + K_ass[n] + ", ";
+    }
+    $("#ferros .ui-widget-content").empty().hide(600);
+    show_mess(mess, "#ferros .ui-widget-content");
 }
 
 function sum_ferros() {
@@ -569,7 +580,20 @@ function select_K_ass(method, material) {
     }
 }
 
-
+/*функция вывода текущих сообщений*/
+function show_mess(mess, clas) {
+    $(clas).css("display", "block");
+    var highlight = $("<strong></strong>").text(mess);
+    var vidget = $("<span></span>").addClass("ui-icon ui-icon-info").css({
+        "float": "left",
+        "margin-right": ".3em"
+    });
+    var mes = $("<p></p>").append(vidget, highlight).css({
+        "padding": "4px",
+        "font-size": "0.875rem"
+    });
+    $(clas).append(mes).show(600);
+}
 
 
 

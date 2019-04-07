@@ -9,10 +9,10 @@ html {
     min-width: 100%;
     width: auto;
     margin: 0;
-    background: #03658b;
-    background: -moz-linear-gradient(bottom, #03658b 0%, #0A3542 100%);
-    background: -webkit-linear-gradient(bottom, #03658b 0%, #0A3542 100%);
-    background: linear-gradient(to top, #03658b 0%, #0A3542 100%);
+    background: #073245;
+    background: -moz-linear-gradient(bottom, #073245 0%, #0A3542 100%);
+    background: -webkit-linear-gradient(bottom, #073245 0%, #0A3542 100%);
+    background: linear-gradient(to top, #073245 0%, #0A3542 100%);
     filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#8bc0d5', endColorstr='#204b7c', GradientType=0);
     /*background: url(../img/Brushed-Metal.jpg) right bottom no-repeat fixed;
     background-size: 100% 100%;*/
@@ -151,7 +151,7 @@ hr {
 /*-----Кнопки----------------------------*/
 
 .leg {
-    width: 15rem;
+    width: 100%;
     margin-left: 0px;
     padding: 0.3125rem 0.625rem;
     background: linear-gradient(to bottom, cyan, #f9a01b);
@@ -499,13 +499,11 @@ select {
 /*-----------------------------------*/
 
 .fakewindowcontein {
-    width: 96%;
-    height: auto;
-    padding: 1% 2%;
     text-align: justify;
-    text-indent: 2rem;
     line-height: normal;
-    color: lightyellow;
+    text-indent: 1.5rem;
+    margin-top: .3em;
+    padding: 1% 2%;
 }
 
 .row {
