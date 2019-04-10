@@ -505,53 +505,15 @@ function ferrosplav() {
     return;
 }
 
+//Рассчёт количества необходимых добавок выбранных ферросплавов
 function payment() {
-    var i, cham_el;
-    let d_m = compare(); //функция расчёта необходимого количества легирующих элементов
-    alert(d_m);
-    cham_el = ['C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'];
-    for (i = 0; i < nom.length; i++) {
-        let k = nom[i]; //рассчитываемый элемент
-        let metod = ferros[i][0];
-        var K_ass = select_K_ass(metod, "fert"); //получаем коэффициенты усвоения для материала        
-        ferros[i][4] = -(d_m[k] * 100 / (ferros[i][k + 7] * K_ass[k])).toFixed(3);
-        ferros[i][6] = ferros[i][4];
-        alert(ferros[i]);
-    }
-    /*Вывод используемых для расчёта коэффициентов усвоения легирующих элементов*/
-    mess = "Приняты коэффициенты усвоения для расчёта добавок: ";
-    for (let n = 0; n < K_ass.length; n++) {
-        mess = mess + cham_el[n] + "-" + K_ass[n] + ", ";
-    }
-    $("#ferros .ui-widget-content").empty().hide(600);
-    show_mess(mess, "#ferros .ui-widget-content");
-}
-
-/*Создание массива с разницей массы содержания легирующих элементов и процентов в заданном и полупродукте*/
-function compare() {
-    var i, d_pr, d_m;
-    var cham_el = ['C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'];
-    d_pr = []; //массив разницы % содержания элементов в заданном и полупродукте
-    d_m = []; //массив разницы массы содержания элементов в заданном и полупродукте
-    /* var cham_el, f_splav, mass_fs, fs;
-    mass_fs = []; //массив с данными по добавляемым ферросплавам
-    fs = []; // массив добавляемого ферросплава*/
-    for (i = 0; i < cham_aver.length; i++) {
-        d_pr[i] = cham_pp[i + 1] - cham_aver[i];
-        if (d_pr[i] < 0) {
-            d_m[i] = (d_pr[i] * cham_pp[0] / 100).toFixed(3);
-        } else {
-            d_m[i] = 0;
-        }
-    }
-    return d_m;
-}
-
-function compare_all() {
     /* 
     Входные данные:
+        Prognoz = [0...14]; //массив вес п/продукта + химсостав вес по элементам
+        cham_el = ['C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb']; 14элементов
+        nom[]; в массиве порядковые номера рассчитываемых ведущих элементов вносимых ферросплавом
         cham_aver[0...13] - содержание ниже среднего в годном
-        cham_pp[0...14] - массив : вес п/продукса + химсостав %
+        cham_pp[0...14] - массив : вес п/продукта + химсостав %
         K_ass[0...13] - массив коэффициентов усвоения добавляемых ферросплавов
         ferros[][0...20] - массив с химсоставом выбранных для добавления ферросплавов
     Промежуточные данные:
@@ -562,30 +524,54 @@ function compare_all() {
         prognoz_pp_m[] - прогнозируемый вес и масса содержащихся в нём хим элементов после добавки выбранных ферросплавов
         ferros[][0...20] - массив с расчётным весом и химсоставом выбранных для добавления ферросплавов
     */
-    var i, d_pr, d_m;
     var cham_el = ['C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'];
-    d_pr = []; //массив разницы % содержания элементов в заданном и полупродукте
-    d_m = []; //массив разницы массы содержания элементов в заданном и полупродукте
-    for (i = 0; i < cham_aver.length; i++) {
-        d_pr[i] = cham_pp[i + 1] - cham_aver[i];
-        if (d_pr[i] < 0) {
-            d_m[i] = (d_pr[i] * cham_pp[0] / 100).toFixed(3);
-        } else {
-            d_m[i] = 0;
-        }
+    var Prognoz_fer_pp = cham_pp; // промежуточный прогноз веса п/продукта
+    var ferros_prom = []; //промежуточный массив расчётнноговеса ферросплава
+
+    /*получаем коэффициенты усвоения для материала и віводим их в html*/
+    let metod = ferros[0][0];
+    var K_ass = select_K_ass(metod, "fert");
+    mess = "Приняты коэффициенты усвоения для расчёта добавок: ";
+    for (let n = 0; n < K_ass.length; n++) {
+        mess = mess + cham_el[n] + "-" + K_ass[n] + ", ";
     }
-    return d_m;
-}
+    $("#ferros .ui-widget-content").empty().hide(600);
+    show_mess(mess, "#ferros .ui-widget-content");
 
-function sum_ferros() {
-    for (let i = 7; i < 21; i++) {
-        for (let J = 0; J < length.ferros; J++) {
+    for (var n = 0; n < 5; n++) {
 
+        for (i = 0; i < nom.length; i++) {
+            let k = nom[i]; //рассчитываемый элемент                
+            ferros_prom[i] = (Prognoz_fer_pp[0] * (cham_aver[k] - Prognoz_fer_pp[k + 1])) / (K_ass[k] * (ferros[i][k + 7] - cham_aver[k])).toFixed(3);
+            ferros[i][4] = ferros[i][4] + ferros_prom[i];
+            ferros[i][6] = ferros[i][4];
+            mess = ferros[i][2] + "=" + (ferros[i][4]).toFixed(3) + "т.";
+            show_mess(mess, "#ferros .ui-widget-content");
+        } // рассчитали вес каждого ферросплава
+
+        var zzz = Prognoz_fer_pp[0];
+        for (i = 0; i < nom.length; i++) {
+            let k = nom[i];
+            zzz = zzz + ferros_prom[i] * K_ass[k];
+        } //рассчитали Прогноз веса п/продукта после добавки ферросплавов 
+
+        for (i = 0; i < 14; i++) {
+            Prognoz_fer_pp[i + 1] = Prognoz_fer_pp[0] * Prognoz_fer_pp[i + 1] / 100;
+            for (j = 0; j < nom.length; j++) {
+                Prognoz_fer_pp[i + 1] = Prognoz_fer_pp[i + 1] + ferros_prom[j] * K_ass[i] * ferros[j][i + 7] / 100;
+            } //масса элемента в п/продукте включачая элемент в каждой добавке
+            Prognoz_fer_pp[i + 1] = 100 * Prognoz_fer_pp[i + 1] / zzz; //прогноз апроцентного содержания элементов в п/продукте после добавки ф/сплавов
         }
+        Prognoz_fer_pp[0] = zzz;
+        mess = "Прогноз веса п/продукта после добавки ферросплавов: " + (Prognoz_fer_pp[0]).toFixed(3) + ", содержание: ";
+        for (i = 0; i < 14; i++) {
+            mess = mess + cham_el[i] + "=" + (Prognoz_fer_pp[i + 1]).toFixed(3) + "%; ";
+        }
+        show_mess(mess, "#ferros .ui-widget-content");
+        show_mess("______________________", "#ferros .ui-widget-content");
+
     }
 }
-
-
 
 /*функция подбора коэффициентов усвоения в зависимости от метода выплавки и вида материала-------------*/
 function select_K_ass(method, material) {
