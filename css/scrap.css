@@ -593,3 +593,9 @@ a {
 a:hover {
     color: lightyellow;
 }
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+    color: #ececec;
+}
