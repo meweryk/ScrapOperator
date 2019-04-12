@@ -617,7 +617,7 @@ function select_K_ass(method, material) {
 function show_mess(mess, clas, icona) {
     $(clas).css("display", "block");
     var highlight = $("<strong></strong>").text(mess);
-    var vidget = $("<span></span>").addClass(icona).css({
+    var vidget = $("<span></span>").addClass("ui-icon ui-icon-info", icona).css({
         "float": "left",
         "margin-right": ".3em"
     });
