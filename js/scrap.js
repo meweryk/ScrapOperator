@@ -505,7 +505,7 @@ function ferrosplav() {
 }
 
 //Рассчёт количества необходимых добавок выбранных ферросплавов
-function payment() {
+function payment(clear) {
     /* 
     Входные данные:
         Prognoz = [0...14]; //массив вес п/продукта + химсостав вес по элементам
@@ -523,8 +523,15 @@ function payment() {
         prognoz_pp_m[] - прогнозируемый вес и масса содержащихся в нём хим элементов после добавки выбранных ферросплавов
         ferros[][0...20] - массив с расчётным весом и химсоставом выбранных для добавления ферросплавов
     */
+    alert(cham_pp);
+    if (clear == "reset") {
+        ferros.length = 0;
+        nom.length = 0;
+        return
+    }
+    var Prognoz_fer_pp = [];
     var cham_el = ['C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'];
-    var Prognoz_fer_pp = cham_pp; // промежуточный прогноз веса п/продукта
+    Prognoz_fer_pp = cham_pp; // промежуточный прогноз веса п/продукта
     var ferros_prom = []; //промежуточный массив расчётнноговеса ферросплава
 
     /*получаем коэффициенты усвоения для материала и віводим их в html*/
@@ -587,6 +594,7 @@ function payment() {
             show_mess(mess, "#ferros .ui-widget-content");
         }
     }
+    return
 }
 
 /*функция подбора коэффициентов усвоения в зависимости от метода выплавки и вида материала-------------*/
@@ -799,6 +807,18 @@ function showPopup6(j) {
     $("#material_ferro").fadeIn(500); // Медленно выводим изображение
     nom.push(check(j)); //добавили номер названия элемента в конец массива
 }
+
+$(function() { // Ждём загрузки страницы
+    $("#ferros .row .cell").click(function() { // Событие клика на затемненный фон	   
+        $(this).css("background", "linear-gradient(#9b9b9b, #666)").addClass("disabled");
+    });
+});
+
+$(function() { // Ждём загрузки страницы
+    $("#ferros .row div").eq(14).click(function() { // Событие клика на затемненный фон	   
+        $("#ferros .row .cell").css("background", "linear-gradient(lightyellow, #778899)").removeClass("disabled");
+    });
+});
 
 //-7--Вывод кнопок для расчёта ферросплавов --------------------------------------------------------------
 function showPopup7() {
