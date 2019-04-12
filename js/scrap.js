@@ -449,7 +449,7 @@ function addItog() {
         }
     }
     show('block', mess);
-    show_mess(mess, ".ui-state-highlight");
+    show_mess(mess, ".ui-state-highlight", "ui-icon ui-icon-info");
 }
 
 /*--1 создание массива с данными хим.состава полупродукта (все элементы по порядку в форме кроме кнопок)*/
@@ -534,32 +534,32 @@ function payment() {
     for (let n = 0; n < K_ass.length; n++) {
         mess = mess + cham_el[n] + "-" + K_ass[n] + ", ";
     }
-    $("#ferros .ui-widget-content").empty().hide(600);
+    $("#ferros .ui-widget-content").hide(400).empty();
     show_mess(mess, "#ferros .ui-widget-content", "ui-icon ui-icon-info");
-	
-	if (nom.length != 1) {
-		var iter = 1 + Math.pow(2, (nom.length));
-	} else {
-		iter = 1;
-	}//количество итераций
-	
+
+    if (nom.length != 1) {
+        var iter = 1 + Math.pow(2, (nom.length));
+    } else {
+        iter = 1;
+    } //количество итераций
+
     for (var n = 0; n < iter; n++) {
 
         if (n == (iter - 1)) {
-        	show_mess("Добавки:", "#ferros .ui-widget-content");
+            show_mess("Добавки:", "#ferros .ui-widget-content", "ui-icon ui-icon-info");
         }
-        
+
         for (i = 0; i < nom.length; i++) {
             let k = nom[i]; //рассчитываемый элемент                
             ferros_prom[i] = (Prognoz_fer_pp[0] * (cham_aver[k] - Prognoz_fer_pp[k + 1])) / (K_ass[k] * (ferros[i][k + 7] - cham_aver[k])).toFixed(3);
             ferros[i][4] = ferros[i][4] + ferros_prom[i];
             ferros[i][6] = ferros[i][4];
             if (n == (iter - 1)) {
-            	mess = ferros[i][2] + "=" + (ferros[i][4]).toFixed(3) + "т.";
-            	show_mess(mess, "#ferros .ui-widget-content");
+                mess = ferros[i][2] + "=" + (ferros[i][4]).toFixed(3) + "т.";
+                show_mess(mess, "#ferros .ui-widget-content");
             }
         } // рассчитали вес каждого ферросплава
-		
+
         var zzz = Prognoz_fer_pp[0];
         for (i = 0; i < nom.length; i++) {
             let k = nom[i];
@@ -574,18 +574,18 @@ function payment() {
             Prognoz_fer_pp[i + 1] = 100 * Prognoz_fer_pp[i + 1] / zzz; //прогноз апроцентного содержания элементов в п/продукте после добавки ф/сплавов
         }
         Prognoz_fer_pp[0] = zzz;
-        
+
         if (n == (iter - 1)) {
-        	mess = "Прогноз массы расплава " + (Prognoz_fer_pp[0]).toFixed(3) + "т, содержание: ";
-        	for (i = 0; i < 14; i++) {
-        		if (Prognoz_fer_pp[i + 1] != 0) {
-            		mess = mess + cham_el[i] + "=" + (Prognoz_fer_pp[i + 1]).toFixed(3) + "%; ";
-            	} else {
-            		mess = mess + cham_el[i] + "=" + Prognoz_fer_pp[i + 1] + "%; ";
-            	}
-        	}//вывод в документ итоговой итерации
-        	show_mess(mess, "#ferros .ui-widget-content");        
-		}
+            mess = "Прогноз массы расплава " + (Prognoz_fer_pp[0]).toFixed(3) + "т, содержание: ";
+            for (i = 0; i < 14; i++) {
+                if (Prognoz_fer_pp[i + 1] != 0) {
+                    mess = mess + cham_el[i] + "=" + (Prognoz_fer_pp[i + 1]).toFixed(3) + "%; ";
+                } else {
+                    mess = mess + cham_el[i] + "=" + Prognoz_fer_pp[i + 1] + "%; ";
+                }
+            } //вывод в документ итоговой итерации
+            show_mess(mess, "#ferros .ui-widget-content");
+        }
     }
 }
 
@@ -617,7 +617,7 @@ function select_K_ass(method, material) {
 function show_mess(mess, clas, icona) {
     $(clas).css("display", "block");
     var highlight = $("<strong></strong>").text(mess);
-    var vidget = $("<span></span>").addClass("ui-icon ui-icon-info").css({
+    var vidget = $("<span></span>").addClass(icona).css({
         "float": "left",
         "margin-right": ".3em"
     });
@@ -625,7 +625,7 @@ function show_mess(mess, clas, icona) {
         "padding": "4px",
         "font-size": "0.875rem"
     });
-    $(clas).append(mes).show(600);
+    $(clas).append(mes).show(400);
 }
 
 
