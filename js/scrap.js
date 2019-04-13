@@ -551,19 +551,15 @@ function payment(clear) {
     } //количество итераций
 
     for (var n = 0; n < iter; n++) {
-
-        if (n == (iter - 1)) {
-            show_mess("Добавки:", "#ferros .ui-widget-content", "ui-icon ui-icon-info");
-        }
-
+        
         for (i = 0; i < nom.length; i++) {
             let k = nom[i]; //рассчитываемый элемент                
             ferros_prom[i] = (Prognoz_fer_pp[0] * (cham_aver[k] - Prognoz_fer_pp[k + 1])) / (K_ass[k] * (ferros[i][k + 7] - cham_aver[k])).toFixed(3);
             ferros[i][4] = ferros[i][4] + ferros_prom[i];
             ferros[i][6] = ferros[i][4];
             if (n == (iter - 1)) {
-                mess = ferros[i][2] + "=" + (ferros[i][4]).toFixed(3) + "т.";
-                show_mess(mess, "#ferros .ui-widget-content");
+                mess = (ferros[i][4]).toFixed(3) + "т.";
+                show_mess_ferro(mess, k);
             }
         } // рассчитали вес каждого ферросплава
 
@@ -636,7 +632,12 @@ function show_mess(mess, clas, icona) {
     $(clas).append(mes).show(400);
 }
 
-
+function show_mess_ferro(mess, k, icona) {
+	if (k > 4) {
+	 k--;}
+	let mes = $("<sub></sub>").text(mess).css({"color": "lightgreen", "font-weight": "bold"});
+	$("#ferros .row .cell").eq(k).append(mes);
+}//выводим на кнопку рассчитанный вес добавки
 
 
 
@@ -815,8 +816,9 @@ $(function() { // Ждём загрузки страницы
 });
 
 $(function() { // Ждём загрузки страницы
-    $("#ferros .row div").eq(14).click(function() { // Событие клика на затемненный фон	   
+    $("#ferros .row div").eq(14).click(function() { // Событие клика на кнопку сброс	   
         $("#ferros .row .cell").css("background", "linear-gradient(lightyellow, #778899)").removeClass("disabled");
+        $("#ferros .row .cell br").nextAll().remove();
     });
 });
 
