@@ -542,7 +542,7 @@ function payment(clear) {
         mess = mess + cham_el[n] + "-" + K_ass[n] + ", ";
     }
     $("#ferros .ui-widget-content").hide(400).empty();
-    show_mess(mess, "#ferros .ui-widget-content", "ui-icon ui-icon-info");
+    show_mess(mess, "#ferros .ui-widget-content");
 
     if (nom.length != 1) {
         var iter = 1 + Math.pow(2, (nom.length));
@@ -551,7 +551,7 @@ function payment(clear) {
     } //количество итераций
 
     for (var n = 0; n < iter; n++) {
-        
+
         for (i = 0; i < nom.length; i++) {
             let k = nom[i]; //рассчитываемый элемент                
             ferros_prom[i] = (Prognoz_fer_pp[0] * (cham_aver[k] - Prognoz_fer_pp[k + 1])) / (K_ass[k] * (ferros[i][k + 7] - cham_aver[k])).toFixed(3);
@@ -618,10 +618,10 @@ function select_K_ass(method, material) {
 }
 
 /*функция вывода текущих сообщений*/
-function show_mess(mess, clas, icona) {
+function show_mess(mess, clas) {
     $(clas).css("display", "block");
     var highlight = $("<strong></strong>").text(mess);
-    var vidget = $("<span></span>").addClass("ui-icon ui-icon-info", icona).css({
+    var vidget = $("<span></span>").addClass("ui-icon ui-icon-info").css({
         "float": "left",
         "margin-right": ".3em"
     });
@@ -632,12 +632,13 @@ function show_mess(mess, clas, icona) {
     $(clas).append(mes).show(400);
 }
 
-function show_mess_ferro(mess, k, icona) {
-	if (k > 4) {
-	 k--;}
-	let mes = $("<sub></sub>").text(mess).css({"color": "lightgreen", "font-weight": "bold"});
-	$("#ferros .row .cell").eq(k).append(mes);
-}//выводим на кнопку рассчитанный вес добавки
+function show_mess_ferro(mess, k) {
+    if (k > 4) {
+        k--;
+    }
+    let mes = $("<sub></sub>").text(mess).css({ "color": "lightgreen", "font-weight": "bold" });
+    $("#ferros .row .cell").eq(k).append(mes);
+} //выводим на кнопку рассчитанный вес добавки
 
 
 
@@ -810,7 +811,7 @@ function showPopup6(j) {
 }
 
 $(function() { // Ждём загрузки страницы
-    $("#ferros .row .cell").click(function() { // Событие клика на затемненный фон	   
+    $("#ferros .row .cell").click(function() { // Событие клика на кнопку добавки ферросплава	   
         $(this).css("background", "linear-gradient(#9b9b9b, #666)").addClass("disabled");
     });
 });
