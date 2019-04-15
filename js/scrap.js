@@ -492,7 +492,7 @@ function ferrosplav() {
         x += fs[i];
     }
     if (x > 100) {
-        mess = "Содержание легирующих элементов в материале " + x + "% превышает 100%, откорректируйте хим. состав";
+        mess = "суммарное содержание хим. элементов " + x + "% > 100%, откорректируйте хим. состав";
         show('block', mess);
         fs.length = 0;
         nom.length--;
@@ -527,11 +527,12 @@ function payment(clear) {
     if (clear == "reset") {
         ferros.length = 0;
         nom.length = 0;
+        ferros_prom = 0;
         return
     }
     var Prognoz_fer_pp = [];
     var cham_el = ['C', 'Ni', 'Cr', 'Mo', 'P', 'Cu', 'Mn', 'W', 'V', 'Co', 'Si', 'Ti', 'Al', 'Nb'];
-    Prognoz_fer_pp = cham_pp; // промежуточный прогноз веса п/продукта
+    Prognoz_fer_pp = cham_pp.slice(); // промежуточный прогноз веса п/продукта, начальные значения как в слитом полупродукте
     var ferros_prom = []; //промежуточный массив расчётнноговеса ферросплава
 
     /*получаем коэффициенты усвоения для материала и віводим их в html*/
@@ -774,13 +775,22 @@ function showPopup5() {
 
 //-6--Вывод окна ввода химсостава ферросплавов------------------------------------------------
 $(function() { // Ждём загрузки страницы
+    var k = nom[(nom.length - 1)];//номер элемента для обязательного ввода
     $("#material_ferro_bg").click(function() { // Событие клика на затемненный фон	   
         $("#material_ferro").fadeOut(500); // Медленно убираем всплывающее окно
         nom.length = nom.length - 1; //убираем название элемента если ввода не с формы было
     });
     $("#material_ferro .chami div:eq(25) .sub").click(function() { // Событие клика на "добавить"
-        if (RegExp($("#material_ferro .chami div:eq(2) input").prop("value"), 'i') != "/(?:)/i") {
+        var k = nom[(nom.length - 1)];
+        
+        $("#material_ferro .chami div input").eq(k + 6).attr("required", "true");
+        if ((RegExp($("#material_ferro .chami div:eq(2) input").prop("value"), 'i') != "/(?:)/i") && (RegExp($("#material_ferro .chami div input").eq(k + 6).prop("value"), 'i') != "/(?:)/i")) {
+            $("#material_ferro .chami div input").eq(k + 6).removeAttr("required");
             $("#material_ferro").fadeOut(500); // Медленно убираем всплывающее окно если в форме заполнены обязательные поля
+            if (k > 4) {
+            k--;
+            }
+            $("#ferros .row .cell").eq(k).css("background", "linear-gradient(#9b9b9b, #666)").addClass("disabled");
         } else {
             return;
         }
@@ -810,17 +820,18 @@ function showPopup6(j) {
     nom.push(check(j)); //добавили номер названия элемента в конец массива
 }
 
-$(function() { // Ждём загрузки страницы
+/*$(function() { // Ждём загрузки страницы
     $("#ferros .row .cell").click(function() { // Событие клика на кнопку добавки ферросплава	   
         $(this).css("background", "linear-gradient(#9b9b9b, #666)").addClass("disabled");
     });
-});
+});//сделать нажатую кнопку неактивноц
+*/ 
 
 $(function() { // Ждём загрузки страницы
     $("#ferros .row div").eq(14).click(function() { // Событие клика на кнопку сброс	   
         $("#ferros .row .cell").css("background", "linear-gradient(lightyellow, #778899)").removeClass("disabled");
         $("#ferros .row .cell br").nextAll().remove();
-    });
+    });//удаление дополнительных записей на кнопках
 });
 
 //-7--Вывод кнопок для расчёта ферросплавов --------------------------------------------------------------
