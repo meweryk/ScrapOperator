@@ -637,7 +637,10 @@ function show_mess_ferro(mess, k) {
     if (k > 4) {
         k--;
     }
-    let mes = $("<sub></sub>").text(mess).css({ "color": "lightgreen", "font-weight": "bold" });
+    let mes = $("<sub></sub>").text(mess).css({
+        "color": "lightgreen",
+        "font-weight": "bold"
+    });
     $("#ferros .row .cell").eq(k).append(mes);
 } //выводим на кнопку рассчитанный вес добавки
 
@@ -775,20 +778,20 @@ function showPopup5() {
 
 //-6--Вывод окна ввода химсостава ферросплавов------------------------------------------------
 $(function() { // Ждём загрузки страницы
-    var k = nom[(nom.length - 1)];//номер элемента для обязательного ввода
+    var k = nom[(nom.length - 1)]; //номер элемента для обязательного ввода
     $("#material_ferro_bg").click(function() { // Событие клика на затемненный фон	   
         $("#material_ferro").fadeOut(500); // Медленно убираем всплывающее окно
         nom.length = nom.length - 1; //убираем название элемента если ввода не с формы было
     });
     $("#material_ferro .chami div:eq(25) .sub").click(function() { // Событие клика на "добавить"
         var k = nom[(nom.length - 1)];
-        
+
         $("#material_ferro .chami div input").eq(k + 6).attr("required", "true");
         if ((RegExp($("#material_ferro .chami div:eq(2) input").prop("value"), 'i') != "/(?:)/i") && (RegExp($("#material_ferro .chami div input").eq(k + 6).prop("value"), 'i') != "/(?:)/i")) {
             $("#material_ferro .chami div input").eq(k + 6).removeAttr("required");
             $("#material_ferro").fadeOut(500); // Медленно убираем всплывающее окно если в форме заполнены обязательные поля
             if (k > 4) {
-            k--;
+                k--;
             }
             $("#ferros .row .cell").eq(k).css("background", "linear-gradient(#9b9b9b, #666)").addClass("disabled");
         } else {
@@ -825,13 +828,13 @@ function showPopup6(j) {
         $(this).css("background", "linear-gradient(#9b9b9b, #666)").addClass("disabled");
     });
 });//сделать нажатую кнопку неактивноц
-*/ 
+*/
 
 $(function() { // Ждём загрузки страницы
     $("#ferros .row div").eq(14).click(function() { // Событие клика на кнопку сброс	   
         $("#ferros .row .cell").css("background", "linear-gradient(lightyellow, #778899)").removeClass("disabled");
         $("#ferros .row .cell br").nextAll().remove();
-    });//удаление дополнительных записей на кнопках
+    }); //удаление дополнительных записей на кнопках
 });
 
 //-7--Вывод кнопок для расчёта ферросплавов --------------------------------------------------------------
@@ -891,7 +894,9 @@ function show(state, mess) {
     d.getElementById('wrap').style.display = state;
 }
 
-
+$(function() {
+    $("#menu").menu();
+});
 
 /*---Обязательно когда нибудь пригодится-----------------------------------------------------------------*/
 /*добавляет функцию для нажатия кнопки к обработчику событий, используя Javascript------------------------*/
