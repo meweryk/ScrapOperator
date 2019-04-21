@@ -580,15 +580,12 @@ span {
 
 a {
     text-decoration: none;
-    font-weight: bold;
     color: cyan;
     /*color: #0AF;
     /*color: #08C;*/
     transition: all 0.3s ease-out;
     position: relative;
     vertical-align: middle;
-    padding: 5px;
-    margin: -0.5px;
 }
 
 a:hover {
@@ -599,4 +596,8 @@ a:hover {
     pointer-events: none;
     cursor: default;
     color: #ececec;
+}
+
+.ui-menu {
+    width: 220px;
 }
