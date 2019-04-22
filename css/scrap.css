@@ -35,6 +35,7 @@ nav,
 footer,
 header {
     flex: 0 0 auto;
+    position: relative;
     background: -moz-linear-gradient(left, rgba(249, 160, 27, 0.33) 0%, rgba(249, 160, 27, 0.9) 37%, rgba(249, 160, 27, 0.93) 58%, rgba(169, 191, 100, 0.94) 67%, rgba(0, 255, 255, 0.5) 86%, rgba(0, 255, 255, 0.17) 100%);
     background: -webkit-linear-gradient(left, rgba(249, 160, 27, 0.33) 0%, rgba(249, 160, 27, 0.9) 37%, rgba(249, 160, 27, 0.93) 58%, rgba(169, 191, 100, 0.94) 67%, rgba(0, 255, 255, 0.5) 86%, rgba(0, 255, 255, 0.17) 100%);
     background: linear-gradient(to right, rgba(249, 160, 27, 0.33) 0%, rgba(249, 160, 27, 0.9) 37%, rgba(249, 160, 27, 0.93) 58%, rgba(169, 191, 100, 0.94) 67%, rgba(0, 255, 255, 0.5) 86%, rgba(0, 255, 255, 0.17) 100%);
@@ -598,6 +599,32 @@ a:hover {
     color: #ececec;
 }
 
+#main_menu {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
 .ui-menu {
-    width: 220px;
+    width: auto;
+}
+
+.toggler {
+    width: auto;
+    height: auto;
+}
+
+#button {
+    position: relative;
+    padding: .875rem .875rem;
+}
+
+#effect {
+    width: auto;
+    height: auto;
+    position: relative;
+}
+
+.Excludemenu-icone {
+    background-image: url("../images/icons.png");
 }
