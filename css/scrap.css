@@ -31,7 +31,6 @@ body {
     height: 100%;
 }
 
-nav,
 footer,
 header {
     flex: 0 0 auto;
@@ -41,6 +40,11 @@ header {
     background: linear-gradient(to right, rgba(249, 160, 27, 0.33) 0%, rgba(249, 160, 27, 0.9) 37%, rgba(249, 160, 27, 0.93) 58%, rgba(169, 191, 100, 0.94) 67%, rgba(0, 255, 255, 0.5) 86%, rgba(0, 255, 255, 0.17) 100%);
     filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#54f9a01b', endColorstr='#2b00ffff', GradientType=1);
     padding: 0.1875rem;
+}
+
+nav {
+    flex: 0 0 auto;
+    position: relative;
 }
 
 .content {
@@ -615,7 +619,9 @@ a:hover {
 }
 
 #button {
-    position: relative;
+    position: absolute;
+    left: 0;
+    top: 0;
     padding: .875rem .875rem;
 }
 
