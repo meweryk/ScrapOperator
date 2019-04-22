@@ -898,6 +898,31 @@ $(function() {
     $("#menu").menu();
 });
 
+$(function() {
+    // run the currently selected effect
+    function runEffect() {
+        var selectedEffect = "fold";
+        var options = {};
+        // Run the effect
+        $("#effect").toggle(selectedEffect, options, 500);
+    };
+
+    //callback function to bring a hidden box back
+    function callback() {
+        setTimeout(function() {
+            $("#effect:visible").removeAttr("style").fadeOut();
+        }, 1000);
+    };
+
+    // Set effect from select menu value
+    $("#button").on("click", function() {
+        runEffect();
+    });
+
+    $("#effect").hide();
+});
+
+
 /*---Обязательно когда нибудь пригодится-----------------------------------------------------------------*/
 /*добавляет функцию для нажатия кнопки к обработчику событий, используя Javascript------------------------*/
 /*var el = d.getElementById("next");
