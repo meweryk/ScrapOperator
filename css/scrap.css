@@ -503,6 +503,13 @@ select {
 
 /*-----------------------------------*/
 
+.disabled {
+    pointer-events: none;
+    cursor: default;
+    color: #ececec;
+    background: linear-gradient(#8a8a8a, #4e4e4e);
+}
+
 .fakewindowcontein {
     text-align: justify;
     line-height: normal;
@@ -595,12 +602,6 @@ a {
 
 a:hover {
     color: lightyellow;
-}
-
-.disabled {
-    pointer-events: none;
-    cursor: default;
-    color: #ececec;
 }
 
 #main_menu {
