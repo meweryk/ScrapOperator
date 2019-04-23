@@ -793,7 +793,7 @@ $(function() { // Ждём загрузки страницы
             if (k > 4) {
                 k--;
             }
-            $("#ferros .row .cell").eq(k).css("background", "linear-gradient(#9b9b9b, #666)").addClass("disabled");
+            $("#ferros .row .cell").eq(k).css("background", "linear-gradient(#8a8a8a, #474747)").addClass("disabled");
         } else {
             return;
         }
