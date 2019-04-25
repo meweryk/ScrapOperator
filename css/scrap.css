@@ -57,7 +57,7 @@ nav {
     margin-bottom: 0.1875rem;
     margin-right: -20px;
     /* maximum width of scrollbar */
-    padding-right: 0.1875rem;
+    padding-right: 20px;
     /* maximum width of scrollbar */
 }
 
