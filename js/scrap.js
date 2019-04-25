@@ -29,30 +29,7 @@ lom - массив с данными по добавляемому лому;
 
 var window, d, document, god, nedol, litn, scrap_r, scrap_sh, ugar, sum, proc, him, mess, plane, sum_proc_god, weight, Pr, zav, el_zav, pp, weight_pp, Prognoz, cham_aver, cham_pp, ferros, q, q7;
 d = document;
-$(function() {
-    $(window).ready(ChangeSize); // событие загрузки html, определяем размер окна таблицы
-    $(window).resize(ChangeSize); // событие изменения окна браузера, определяем размер окна таблицы
-});
 
-function ChangeSize() {
-    var ww = window.innerWidth; //ширина окна 
-    var xy = ww;
-    /*if (xy < 800) {
-        xy = (xy - 12) + "px";
-        d.getElementById("shih_mat").style.width = xy;
-        //	d.getElementsByClass("form").style.width = xy;
-    } //прокрутка если окно меньше 800px (для мобильных)
-    /*var tw = $(".scrapgroup").width(); //ширина таблицы
-    var ch = $("section").height(); //высота основного блока
-    document.getElementById("scrap").style.width = tw + "px"; //установка ширины блока с таблицей
-    $("#scrap").css("height", ((ch - 17) + "px")); //высота блока с шапкой и таблицей равна высоте основного контейнера                   
-    $(".scroll").css("height", ((ch - 17) + "px")); //высота блока с таблицей                 
-    $(".fixFox").css("width", (tw + "px")); //устанавливаем ширину блока с шапкой
-    $(".scroll").css("width", ((tw + 17) + "px")); //устанавливаем ширину блока с таблицей
-    if (ww < (tw + 17)) {
-    	$(".content").css("width", (ww + "px")); //установка ширины в jquery            	
-    } //прокрутка если окно меньше ширины окна (для мобильных)*/
-}
 sum = []; // массив суммарными данными по шихте
 ferros = []; //массив с данными по добавляесым феросплавам для расчёта
 him = addCham();
