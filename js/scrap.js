@@ -881,7 +881,7 @@ $(function() {
         var selectedEffect = "fold";
         var options = {};
         // Run the effect
-        $("#effect").toggle(selectedEffect, options, 500);
+        $("#effect").toggle(selectedEffect, options, 200);
     };
 
     //callback function to bring a hidden box back
