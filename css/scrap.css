@@ -231,7 +231,7 @@ hr {
 }
 
 table {
-    width: auto;
+    width: 100%;
     padding: 0.250rem 0rem;
     border-collapse: separate;
     border-spacing: 0.125rem 0rem;
