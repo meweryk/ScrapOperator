@@ -58,7 +58,11 @@ footer {
 
 .scroll {
     flex: 1 0 auto;
-    overflow-y: auto;
+    margin-right: -50px;
+    /* maximum width of scrollbar */
+    padding-right: 50px;
+    /* maximum width of scrollbar */
+    overflow-y: scroll;
 }
 
 
