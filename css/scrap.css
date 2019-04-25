@@ -164,7 +164,7 @@ hr {
     width: 100%;
     margin-left: 0px;
     padding: 0.3125rem 0.625rem;
-    background: linear-gradient(to bottom, cyan, #f9a01b);
+    background: linear-gradient(to bottom, rgb(0, 240, 240), #ec940e);
     border-radius: 0.3125rem;
     border: 1px solid #333;
     font-size: 0.875rem;
@@ -173,6 +173,14 @@ hr {
     text-align: left;
     color: rgb(0, 0, 0);
     cursor: pointer;
+}
+
+.leg:hover {
+    background: linear-gradient(to bottom, #44ffff, #fac824);
+}
+
+.leg:active {
+    background: linear-gradient(to top, #44ffff, #fac824);
 }
 
 #lom,
