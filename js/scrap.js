@@ -37,7 +37,7 @@ $(function() {
 function ChangeSize() {
     var ww = window.innerWidth; //ширина окна 
     var xy = ww;
-    if (xy < 800) {
+    /*if (xy < 800) {
         xy = (xy - 12) + "px";
         d.getElementById("shih_mat").style.width = xy;
         //	d.getElementsByClass("form").style.width = xy;
