@@ -881,14 +881,7 @@ $(function() {
         var selectedEffect = "fold";
         var options = {};
         // Run the effect
-        $("#effect").toggle(selectedEffect, options, 200);
-    };
-
-    //callback function to bring a hidden box back
-    function callback() {
-        setTimeout(function() {
-            $("#effect:visible").removeAttr("style").fadeOut();
-        }, 1000);
+        $("#effect").toggle(selectedEffect, options, 300);
     };
 
     // Set effect from select menu value
