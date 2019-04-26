@@ -644,7 +644,6 @@ a:hover {
 ---------------------------------------------*/
 
 #button {
-    position: absolute;
     left: 0;
     top: 0;
     padding: .225rem .225rem;
