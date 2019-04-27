@@ -31,7 +31,7 @@ footer,
 header {
     flex: 0 0 auto;
     position: relative;
-    background: -moz-linear-gradient(left, rgba(249, 160, 27, 0.33) 0%, rgba(249, 160, 27, 0.9) 37%, rgba(249, 160, 27, 0.93) 58%, rgba(169, 191, 100, 0.94) 67%, rgba(0, 255, 255, 0.5) 86%, rgba(0, 255, 255, 0.17) 100%);
+    background: -moz-linear-gradient(left, rgba(249, 160, 27, 0.33) 0%, rgba(249, 160, 27, 0.9) 37%, rgba(249, 160, 27, 0.93) 58%, rgba(169, 191, 100, 0.94) 67%, rgba(0, 255, 255, 0.5) 86%, #00ffff2b 100%);
     background: -webkit-linear-gradient(left, rgba(249, 160, 27, 0.33) 0%, rgba(249, 160, 27, 0.9) 37%, rgba(249, 160, 27, 0.93) 58%, rgba(169, 191, 100, 0.94) 67%, rgba(0, 255, 255, 0.5) 86%, rgba(0, 255, 255, 0.17) 100%);
     background: linear-gradient(to right, rgba(249, 160, 27, 0.33) 0%, rgba(249, 160, 27, 0.9) 37%, rgba(249, 160, 27, 0.93) 58%, rgba(169, 191, 100, 0.94) 67%, rgba(0, 255, 255, 0.5) 86%, rgba(0, 255, 255, 0.17) 100%);
     filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#54f9a01b', endColorstr='#2b00ffff', GradientType=1);
@@ -673,7 +673,7 @@ a:hover {
     width: 38.5px;
     height: 5.6px;
     margin-bottom: 7px;
-    background: #79c5b2;
+    background: #72c7b2;
     border-radius: 2.8px;
     -webkit-transition: all .5s cubic-bezier(.08, .81, .87, .71);
     -moz-transition: all .5s cubic-bezier(.08, .81, .87, .71);
@@ -691,17 +691,17 @@ a:hover {
 }
 
 .menuToggle input:checked~#span1 {
-    background-color: #ca983b;
+    background-color: #ca8e1f;
     transform: rotate(45deg) translate(5.6px);
 }
 
 .menuToggle input:checked~#span2 {
-    background-color: #ca983b;
+    background-color: #ca8e1f;
     transform: rotate(495deg) translate(2.8px);
 }
 
 .menuToggle input:checked~#span3 {
-    background-color: #ca983b;
+    background-color: #ca8e1f;
     transform: rotate(45deg);
     opacity: 0;
 }
