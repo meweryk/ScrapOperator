@@ -9,11 +9,6 @@ html {
     min-width: 100%;
     width: auto;
     margin: 0;
-    /*background: #073245;
-    background: -moz-linear-gradient(bottom, #073245 0%, #0A3542 100%);
-    background: -webkit-linear-gradient(bottom, #073245 0%, #0A3542 100%);
-    background: linear-gradient(to top, #073245 0%, #0A3542 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#8bc0d5', endColorstr='#204b7c', GradientType=0);*/
     background: url(../img/Brushed-Metal.jpg) right bottom no-repeat fixed;
     background-size: 100% 100%;
 }
@@ -628,7 +623,7 @@ a:hover {
 }
 
 .toggler {
-    width: 12rem;
+    width: 11rem;
     height: auto;
 }
 
@@ -678,7 +673,7 @@ a:hover {
     width: 38.5px;
     height: 5.6px;
     margin-bottom: 7px;
-    background: #9edce4;
+    background: #79c5b2;
     border-radius: 2.8px;
     -webkit-transition: all .5s cubic-bezier(.08, .81, .87, .71);
     -moz-transition: all .5s cubic-bezier(.08, .81, .87, .71);
@@ -688,7 +683,7 @@ a:hover {
 }
 
 #span1 {
-    transform-origin: 2.8px 0px;
+    transform-origin: 4px 0px;
 }
 
 #span3 {
