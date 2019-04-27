@@ -673,7 +673,7 @@ a:hover {
     width: 38.5px;
     height: 5.6px;
     margin-bottom: 7px;
-    background: #72c7b2;
+    background: #63d6b9;
     border-radius: 2.8px;
     -webkit-transition: all .5s cubic-bezier(.08, .81, .87, .71);
     -moz-transition: all .5s cubic-bezier(.08, .81, .87, .71);
@@ -691,17 +691,17 @@ a:hover {
 }
 
 .menuToggle input:checked~#span1 {
-    background-color: #ca8e1f;
+    background-color: #da971c;
     transform: rotate(45deg) translate(5.6px);
 }
 
 .menuToggle input:checked~#span2 {
-    background-color: #ca8e1f;
+    background-color: #da971c;
     transform: rotate(495deg) translate(2.8px);
 }
 
 .menuToggle input:checked~#span3 {
-    background-color: #ca8e1f;
+    background-color: #da971c;
     transform: rotate(45deg);
     opacity: 0;
 }
