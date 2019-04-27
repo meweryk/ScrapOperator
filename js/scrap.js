@@ -544,7 +544,7 @@ function payment(clear) {
         var zzz = Prognoz_fer_pp[0];
         for (i = 0; i < nom.length; i++) {
             let k = nom[i];
-            zzz = zzz + ferros_prom[i] * K_ass[k];
+            zzz = zzz + ferros_prom[i] * K_ass[k]; //метод приближённый, для более точного необходимо суммировать каждый элемент в ферросплаве с учётом угара
         } //рассчитали Прогноз веса п/продукта после добавки ферросплавов 
 
         for (i = 0; i < 14; i++) {
@@ -566,6 +566,10 @@ function payment(clear) {
                 }
             } //вывод в документ итоговой итерации
             show_mess(mess, "#ferros .ui-widget-content");
+            Prognoz[0] = cham_pp[0];
+            for (i = 1; i < 14; i++) {
+                Prognoz[i] = Prognoz[0] * cham_pp[i] / 100; //устанавливка исходных значений для нового прогнозирования
+            }
         }
     }
     return
@@ -881,7 +885,7 @@ $(function() {
         var selectedEffect = "fold";
         var options = {};
         // Run the effect
-        $("#effect").toggle(selectedEffect, options, 300);
+        $("#effect").toggle(selectedEffect, options, 400);
     };
 
     // Set effect from select menu value
@@ -889,30 +893,15 @@ $(function() {
         runEffect();
     });
 
-    $("#effect").hide();
+    $("#effect").hide(); //при перезагрузку страницы скрывает меню
 });
 
-
-/*---Обязательно когда нибудь пригодится-----------------------------------------------------------------*/
-/*добавляет функцию для нажатия кнопки к обработчику событий, используя Javascript------------------------*/
-/*var el = d.getElementById("next");
-if (el.addEventListener) {
-    el.addEventListener("click", addWeight, false);
-} else if (el.attachEvent) {
-    el.attachEvent('onclick', addWeight);
+function add_in_table() {
+    mess = "Sorry... На данный момент функция в разработке. Для дальнейших расчётов внесите добавки ферросплавов в таблицу самостоятельно. Будьте внимательны: в выборе полей 'МЕТОД' и 'ФЕРРО' ";
+    show('block', mess);
 }
 
-function addWeight() {
-    var K_ass = [0.939, 0.2, 0.98, 0.95, 0.8, 0.9, 0.97, 0.95, 0.9, 0.7, 0.9, 0.97]; //Ni assimilation (усвоение элементов при плавлении)
-    weight = [];
-    Pr = [];
-    for (var i = 0; i < K_ass.length; i++) {
-        weight[i] = (K_ass[i] * sum[i + 2]).toFixed(3);
-        if (i > 0) {
-            Pr[i] = (100 * weight[i] / weight[0]).toFixed(3);
-        }
-    }
-}*/
+
 
 /*------------Функция показа сообщений ДА-НЕТ----------------------------------------------------------*/
 /*function show_YN(state, mess, answer) {
