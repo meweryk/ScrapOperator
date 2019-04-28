@@ -659,8 +659,8 @@ a:hover {
 
 .menuToggle input {
     display: flex;
-    width: 42px;
-    height: 42px;
+    width: 34px;
+    height: 34px;
     position: absolute;
     cursor: pointer;
     opacity: 0;
@@ -670,9 +670,9 @@ a:hover {
 }
 
 .menuToggle span {
-    width: 38.5px;
-    height: 5.6px;
-    margin-bottom: 7px;
+    width: 30px;
+    height: 4px;
+    margin-bottom: 5px;
     background: #63d6b9;
     border-radius: 2.8px;
     -webkit-transition: all .5s cubic-bezier(.08, .81, .87, .71);
@@ -692,12 +692,12 @@ a:hover {
 
 .menuToggle input:checked~#span1 {
     background-color: #da971c;
-    transform: rotate(45deg) translate(5.6px);
+    transform: rotate(45deg) translate(5px);
 }
 
 .menuToggle input:checked~#span2 {
     background-color: #da971c;
-    transform: rotate(495deg) translate(2.8px);
+    transform: rotate(495deg) translate(2.5px);
 }
 
 .menuToggle input:checked~#span3 {
