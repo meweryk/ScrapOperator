@@ -666,6 +666,7 @@ $(function() { // Ждём загрузки страницы
 
 function showPopup1() {
     $(".form").css("width", "14rem");
+    $(".legend").css("width", "14rem");
     $(".close_ready").css("margin-left", "12.5rem");
     $("#plavka").fadeIn(500); // Медленно выводим изображение
 }
