@@ -2,36 +2,41 @@
 <html lang="ru">
 
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-139132006-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('set', {
-            'user_id': 'USER_ID'
-        }); // Задание идентификатора пользователя с помощью параметра user_id (текущий пользователь).
-
-        ga('set', 'userId',
-            'USER_ID'); // Задание идентификатора пользователя с помощью параметра user_id (текущий пользователь).
-
-        gtag('config', 'UA-139132006-1');
-    </script>
-
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
     <title>Scrap Operator</title>
     <link rel="stylesheet" href="css/scrap.css" type="text/css">
     <link href="jquery-ui.css" rel="stylesheet">
+
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KC4D2NN');
+    </script>
+    <!-- End Google Tag Manager -->
+
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="js/date_time.js"></script>
     <script type="text/javascript" src="js/scrap.js" defer></script>
 </head>
 
 <body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KC4D2NN" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <div class="wrapper">
 
