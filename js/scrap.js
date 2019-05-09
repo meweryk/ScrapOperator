@@ -630,14 +630,14 @@ function show_mess_ferro(mess, k) {
 q = 0;
 q7 = 0;
 //--Вывод окна ввода химсостава годного------------------------------------------------
-$(function() { // Ждём загрузки страницы
-    $("#chamgod_bg").click(function() { // Событие клика на затемненный фон	   
+$(function () { // Ждём загрузки страницы
+    $("#chamgod_bg").click(function () { // Событие клика на затемненный фон	   
         $("#chamgod").fadeOut(500); // Медленно убираем всплывающее окно
     });
-    $("#ready").click(function() { // Событие клика на "добавить"	   
+    $("#ready").click(function () { // Событие клика на "добавить"	   
         $("#chamgod").fadeOut(500); // Медленно убираем всплывающее окно
     });
-    $(".close_ready").click(function() { // Событие клика на затемненный фон	   
+    $(".close_ready").click(function () { // Событие клика на затемненный фон	   
         $("#chamgod").fadeOut(500); // Медленно убираем всплывающее окно
     });
 });
@@ -655,11 +655,11 @@ function showPopup() {
 }
 
 //-1--Вывод окна ввода плавки--------------------------------------------------------------
-$(function() { // Ждём загрузки страницы
-    $("#plavka_bg").click(function() { // Событие клика на затемненный фон	   
+$(function () { // Ждём загрузки страницы
+    $("#plavka_bg").click(function () { // Событие клика на затемненный фон	   
         $("#plavka").fadeOut(500); // Медленно убираем всплывающее окно
     });
-    $(".close_ready").click(function() { // Событие клика на затемненный фон	   
+    $(".close_ready").click(function () { // Событие клика на затемненный фон	   
         $("#plavka").fadeOut(500); // Медленно убираем всплывающее окно
     });
 });
@@ -672,11 +672,11 @@ function showPopup1() {
 }
 
 //-2--Вывод окна расчёта массы завалки--------------------------------------------------------------
-$(function() { // Ждём загрузки страницы
-    $("#kanav_bg").click(function() { // Событие клика на затемненный фон	   
+$(function () { // Ждём загрузки страницы
+    $("#kanav_bg").click(function () { // Событие клика на затемненный фон	   
         $("#kanav").fadeOut(500); // Медленно убираем всплывающее окно
     });
-    $(".close_ready").click(function() { // Событие клика на затемненный фон	   
+    $(".close_ready").click(function () { // Событие клика на затемненный фон	   
         $("#kanav").fadeOut(500); // Медленно убираем всплывающее окно		
     });
 });
@@ -694,18 +694,18 @@ function showPopup2() {
 }
 
 //-3--Вывод окна добавки материала --------------------------------------------------------------
-$(function() { // Ждём загрузки страницы
-    $("#material_bg").click(function() { // Событие клика на затемненный фон	   
+$(function () { // Ждём загрузки страницы
+    $("#material_bg").click(function () { // Событие клика на затемненный фон	   
         $("#material").fadeOut(500); // Медленно убираем всплывающее окно
     });
-    $("#material .chami div:eq(25) .sub").click(function() { // Событие клика на "добавить"
+    $("#material .chami div:eq(25) .sub").click(function () { // Событие клика на "добавить"
         if ((RegExp($("#material .chami div:eq(2) input").prop("value"), 'i') != "/(?:)/i") && (RegExp($("#material .chami div:eq(6) input").prop("value"), 'i') != "/(?:)/i") && (RegExp($("#material .chami div:eq(8) input").prop("value"), 'i') != "/(?:)/i")) {
             $("#material").fadeOut(500); // Медленно убираем всплывающее окно если в форме заполнены обязательные поля
         } else {
             return;
         }
     });
-    $(".close_ready").click(function() { // Событие клика на затемненный фон	   
+    $(".close_ready").click(function () { // Событие клика на затемненный фон	   
         $("#material").fadeOut(500); // Медленно убираем всплывающее окно
     });
 });
@@ -732,18 +732,18 @@ function showPopup4() {
 }
 
 //-5--Вывод окна ввода данных полупродукта------------------------------------------------
-$(function() { // Ждём загрузки страницы
-    $("#add_pp_bg").click(function() { // Событие клика на затемненный фон	   
+$(function () { // Ждём загрузки страницы
+    $("#add_pp_bg").click(function () { // Событие клика на затемненный фон	   
         $("#add_pp").fadeOut(500); // Медленно убираем всплывающее окно
     });
-    $("#add_pp .chami div:eq(15) .sub").click(function() { // Событие клика на "добавить"
+    $("#add_pp .chami div:eq(15) .sub").click(function () { // Событие клика на "добавить"
         if (RegExp($("#add_pp .add input").prop("value"), 'i') != "/(?:)/i") {
             $("#add_pp").fadeOut(500); // Медленно убираем всплывающее окно если в форме заполнены обязательные поля
         } else {
             return;
         }
     });
-    $(".close_ready").click(function() { // Событие клика на затемненный фон	   
+    $(".close_ready").click(function () { // Событие клика на затемненный фон	   
         $("#add_pp").fadeOut(500); // Медленно убираем всплывающее окно
     });
 });
@@ -759,13 +759,13 @@ function showPopup5() {
 }
 
 //-6--Вывод окна ввода химсостава ферросплавов------------------------------------------------
-$(function() { // Ждём загрузки страницы
+$(function () { // Ждём загрузки страницы
     var k = nom[(nom.length - 1)]; //номер элемента для обязательного ввода
-    $("#material_ferro_bg").click(function() { // Событие клика на затемненный фон	   
+    $("#material_ferro_bg").click(function () { // Событие клика на затемненный фон	   
         $("#material_ferro").fadeOut(500); // Медленно убираем всплывающее окно
         nom.length = nom.length - 1; //убираем название элемента если ввода не с формы было
     });
-    $("#material_ferro .chami div:eq(25) .sub").click(function() { // Событие клика на "добавить"
+    $("#material_ferro .chami div:eq(25) .sub").click(function () { // Событие клика на "добавить"
         var k = nom[(nom.length - 1)];
 
         $("#material_ferro .chami div input").eq(k + 6).attr("required", "true");
@@ -780,7 +780,7 @@ $(function() { // Ждём загрузки страницы
             return;
         }
     });
-    $(".close_ready").click(function() { // Событие клика на затемненный фон
+    $(".close_ready").click(function () { // Событие клика на затемненный фон
         $("#material_ferro").fadeOut(500); // Медленно убираем всплывающее окно
         nom.length = nom.length - 1; //убираем название элемента если ввода не с формы было
     });
@@ -812,8 +812,8 @@ function showPopup6(j) {
 });//сделать нажатую кнопку неактивноц
 */
 
-$(function() { // Ждём загрузки страницы
-    $("#ferros .row div").eq(14).click(function() { // Событие клика на кнопку сброс	   
+$(function () { // Ждём загрузки страницы
+    $("#ferros .row div").eq(14).click(function () { // Событие клика на кнопку сброс	   
         $("#ferros .row .cell").css("background", "linear-gradient(lightyellow, #778899)").removeClass("disabled");
         $("#ferros .row .cell br").nextAll().remove();
     }); //удаление дополнительных записей на кнопках
@@ -876,11 +876,11 @@ function show(state, mess) {
     d.getElementById('wrap').style.display = state;
 }
 
-$(function() {
+$(function () {
     $("#menu").menu();
 });
 
-$(function() {
+$(function () {
     // run the currently selected effect
     function runEffect() {
         var selectedEffect = "fold";
@@ -890,7 +890,7 @@ $(function() {
     };
 
     // Set effect from select menu value
-    $("#button").on("click", function() {
+    $("#button").on("click", function () {
         runEffect();
     });
 
